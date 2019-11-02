@@ -19,14 +19,19 @@ namespace Assets.Scripts
             {
                 AttemptBet();
             }
+
+            if(Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                stateMachine.AddCredits(1000);
+            }
         }
 
         public void AttemptBet()
         {
-            if(stateMachine.credits > stateMachine.currentBetLevel * stateMachine.minBet)
-            {
+            //if (stateMachine.credits > stateMachine.currentBetLevel * stateMachine.minBet)
+            //{
                 stateMachine.ChangeState<ReelSpinState>();
-            }
+            //}
         }
     }
 }
