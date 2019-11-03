@@ -31,7 +31,7 @@ namespace Assets.Scripts
             bool complete = true;
             foreach (Reel reel in stateMachine.reels)
             {
-                complete &= reel.spinning;
+                complete &= !reel.spinning;
             }
 
             if(complete)
@@ -42,7 +42,7 @@ namespace Assets.Scripts
 
         public void CompleteSpin()
         {
-            stateMachine.ChangeState<IdleState>();
+            stateMachine.ChangeState<AwardState>();
         }
     }
 }

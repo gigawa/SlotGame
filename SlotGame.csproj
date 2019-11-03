@@ -653,11 +653,13 @@
     <Compile Include="Assets\ByTheTale\StateMachine\MachineState.cs" />
     <Compile Include="Assets\ByTheTale\StateMachine\State.cs" />
     <Compile Include="Assets\ByTheTale\StateMachine\StateInterface.cs" />
+    <Compile Include="Assets\Scripts\AwardState.cs" />
     <Compile Include="Assets\Scripts\BaseGameController.cs" />
     <Compile Include="Assets\Scripts\IdleState.cs" />
     <Compile Include="Assets\Scripts\Reel.cs" />
     <Compile Include="Assets\Scripts\ReelSpinState.cs" />
     <Compile Include="Assets\Scripts\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\WinEvaluator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ByTheTale\StateMachine\README.txt" />

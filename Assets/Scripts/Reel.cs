@@ -6,7 +6,7 @@ namespace Assets.Scripts
 {
     public class Reel : MonoBehaviour
     {
-
+        [SerializeField]
         public GameObject[] symbols;
 
         [SerializeField]
@@ -81,35 +81,13 @@ namespace Assets.Scripts
 
         void CompleteSpin()
         {
-            //for(int i = 0; i < symbols.Length; i++)
-            //{
-            //    float yPosition;
-            //    if(i == stopPosition)
-            //    {
-            //        yPosition = 0;
-            //    }
-            //    if (2 - (symbols.Length - stopPosition) < i)
-            //    {
-            //        yPosition = (i - (symbols.Length - stopPosition)) * spaceBetweenSymbols;
-            //    }
-            //    else
-            //    {
-            //        Debug.Log("Less than -2");
-            //        yPosition = (i + (symbols.Length - stopPosition)) * spaceBetweenSymbols;
-            //    }
-            //    symbols[i].transform.localPosition = new Vector3(symbols[i].transform.localPosition.x, yPosition, symbols[i].transform.position.z);
-            //    Debug.Log("i: " + i + ", Y: " + yPosition);
-            //}
-            Debug.Log(symbols.Length);
             int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Length - 1) - (1 - stopPosition));
-            Debug.Log("Starting Position: " + position);
             float yPosition = -2 * spaceBetweenSymbols;
             for (int i = 0; i < symbols.Length; i++)
             {
                 symbols[position].transform.localPosition = new Vector3(symbols[position].transform.localPosition.x, yPosition, symbols[position].transform.position.z);
 
                 position = position + 1 < symbols.Length ? position + 1 : 0;
-                Debug.Log(position);
 
                 yPosition += spaceBetweenSymbols;
             }
