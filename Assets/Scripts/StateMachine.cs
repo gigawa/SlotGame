@@ -12,6 +12,7 @@ namespace Assets.Scripts
         public int[] betLevels { get; private set; }
         public int minBet { get; private set; }
         public Reel[] reels;
+        public bool seedGame;
 
         public override void AddStates()
         {

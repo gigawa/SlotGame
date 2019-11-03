@@ -25,24 +25,26 @@ namespace Assets.Scripts
         public float minSpinTime;
         public float currSpinTime;
         public float spinSpeed;
+        public float topPosition;
+
+        public StateMachine stateMachine;
 
         // Start is called before the first frame update
         void Start()
         {
-            Debug.Log(symbols[7].transform.localPosition.y);
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (spinning && (stopPosition <= targetStopPos || currSpinTime < minSpinTime))
+            if (spinning && (stopPosition != targetStopPos || currSpinTime < minSpinTime))
             {
                 SpinReel();
             }
             else if (spinning)
             {
-                spinning = false;
-                currSpinTime = 0f;
+                CompleteSpin();
             }
         }
 
@@ -53,8 +55,11 @@ namespace Assets.Scripts
         public void SetTargetStopPosition(int newStop)
         {
             targetStopPos = newStop;
+        }
+
+        public void StartSpin()
+        {
             spinning = true;
-            //SpinReel();
         }
 
         void SpinReel()
@@ -65,9 +70,7 @@ namespace Assets.Scripts
 
                 if(symbols[i].transform.localPosition.y < (-1 * spaceBetweenSymbols * 2))
                 {
-                    GameObject topSymbol = (i - 1) >= 0 ? symbols[i-1] : symbols[symbols.Length - 1];
-                    Debug.Log(topSymbol.name);
-                    symbols[i].transform.localPosition = new Vector3(symbols[i].transform.localPosition.x, topSymbol.transform.localPosition.y + spaceBetweenSymbols, symbols[i].transform.position.z);
+                    symbols[i].transform.localPosition = new Vector3(symbols[i].transform.localPosition.x, topPosition, symbols[i].transform.position.z);
                 }
             }
 
@@ -78,7 +81,41 @@ namespace Assets.Scripts
 
         void CompleteSpin()
         {
+            //for(int i = 0; i < symbols.Length; i++)
+            //{
+            //    float yPosition;
+            //    if(i == stopPosition)
+            //    {
+            //        yPosition = 0;
+            //    }
+            //    if (2 - (symbols.Length - stopPosition) < i)
+            //    {
+            //        yPosition = (i - (symbols.Length - stopPosition)) * spaceBetweenSymbols;
+            //    }
+            //    else
+            //    {
+            //        Debug.Log("Less than -2");
+            //        yPosition = (i + (symbols.Length - stopPosition)) * spaceBetweenSymbols;
+            //    }
+            //    symbols[i].transform.localPosition = new Vector3(symbols[i].transform.localPosition.x, yPosition, symbols[i].transform.position.z);
+            //    Debug.Log("i: " + i + ", Y: " + yPosition);
+            //}
+            Debug.Log(symbols.Length);
+            int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Length - 1) - (1 - stopPosition));
+            Debug.Log("Starting Position: " + position);
+            float yPosition = -2 * spaceBetweenSymbols;
+            for (int i = 0; i < symbols.Length; i++)
+            {
+                symbols[position].transform.localPosition = new Vector3(symbols[position].transform.localPosition.x, yPosition, symbols[position].transform.position.z);
 
+                position = position + 1 < symbols.Length ? position + 1 : 0;
+                Debug.Log(position);
+
+                yPosition += spaceBetweenSymbols;
+            }
+
+            spinning = false;
+            currSpinTime = 0f;
         }
     }
 }

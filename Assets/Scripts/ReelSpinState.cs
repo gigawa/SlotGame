@@ -14,9 +14,35 @@ namespace Assets.Scripts
 
             foreach (Reel reel in stateMachine.reels)
             {
-                int newStop = Random.Range(0, reel.symbols.Length - 1);
-                reel.SetTargetStopPosition(newStop);
+                if(!stateMachine.seedGame)
+                {
+                    int newStop = Random.Range(0, reel.symbols.Length - 1);
+                    reel.SetTargetStopPosition(newStop);
+                }
+
+                reel.StartSpin();
             }
+        }
+
+        public override void PostExecute()
+        {
+            base.PostExecute();
+
+            bool complete = true;
+            foreach (Reel reel in stateMachine.reels)
+            {
+                complete &= reel.spinning;
+            }
+
+            if(complete)
+            {
+                CompleteSpin();
+            }
+        }
+
+        public void CompleteSpin()
+        {
+            stateMachine.ChangeState<IdleState>();
         }
     }
 }
