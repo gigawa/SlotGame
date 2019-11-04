@@ -26,6 +26,20 @@ namespace Assets.Scripts
             }
         }
 
+        public override void Enter()
+        {
+            base.Enter();
+
+            stateMachine.winEvaluator.StartWinCycle();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+
+            stateMachine.winEvaluator.StopWinCycle();
+        }
+
         public void AttemptBet()
         {
             //if (stateMachine.credits > stateMachine.currentBetLevel * stateMachine.minBet)

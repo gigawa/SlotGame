@@ -41,10 +41,27 @@ namespace Assets.Scripts
         public List<WinCombo> winCombos;
         public List<Line> lines;
 
+        private bool playingWinCycle = false;
+        private bool shouldPlayCycle = false;
+
+        public Coroutine winCycleInstance;
+
         public void Start()
         {
             reels = stateMachine.reels;
             symbolWindow = new Symbol[windowWidth, windowHeight];
+        }
+
+        public void FixedUpdate()
+        {
+            if(shouldPlayCycle)
+            {
+                if (!playingWinCycle)
+                {
+                    playingWinCycle = true;
+                    winCycleInstance = StartCoroutine(PlayWinCycle());
+                }
+            }
         }
 
         /// <summary>
@@ -92,8 +109,6 @@ namespace Assets.Scripts
 
             Debug.Log("Total Win: " + win);
 
-            StartCoroutine(PlayWinCycle());
-
             return win;
         }
 
@@ -135,7 +150,19 @@ namespace Assets.Scripts
             return comboWin;
         }
 
-        IEnumerator PlayWinCycle ()
+        public void StartWinCycle ()
+        {
+            shouldPlayCycle = true;
+        }
+
+        public void StopWinCycle ()
+        {
+            StopCoroutine(winCycleInstance);
+            playingWinCycle = false;
+            shouldPlayCycle = false;
+        }
+
+        IEnumerator PlayWinCycle()
         {
             Debug.Log("Play Win Cycle");
             for(int i = 0; i < lines.Count; i++)
@@ -157,6 +184,10 @@ namespace Assets.Scripts
                     }
                 }
             }
+
+            yield return new WaitForSeconds(1);
+
+            playingWinCycle = false;
         }
     }
 }

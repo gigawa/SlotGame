@@ -1331,37 +1331,37 @@ MonoBehaviour:
   - gameObject: {fileID: 1091745701}
     winEffect: {fileID: 0}
     minRng: 0
-    maxRng: 15
+    maxRng: 30
   - gameObject: {fileID: 337971770}
     winEffect: {fileID: 0}
-    minRng: 16
-    maxRng: 20
+    minRng: 31
+    maxRng: 60
   - gameObject: {fileID: 1904969538}
     winEffect: {fileID: 0}
-    minRng: 21
-    maxRng: 50
+    minRng: 61
+    maxRng: 65
   - gameObject: {fileID: 1279585402}
     winEffect: {fileID: 0}
-    minRng: 51
-    maxRng: 65
+    minRng: 66
+    maxRng: 70
   - gameObject: {fileID: 20611574}
     winEffect: {fileID: 0}
-    minRng: 66
-    maxRng: 95
+    minRng: 71
+    maxRng: 75
   - gameObject: {fileID: 532618496}
     winEffect: {fileID: 0}
-    minRng: 96
-    maxRng: 105
+    minRng: 76
+    maxRng: 80
   - gameObject: {fileID: 771050672}
     winEffect: {fileID: 0}
-    minRng: 106
-    maxRng: 115
+    minRng: 81
+    maxRng: 120
   - gameObject: {fileID: 666298805}
     winEffect: {fileID: 0}
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 1
+  targetStopPos: 0
   minSpinTime: 1
   currSpinTime: 0
   spinSpeed: 7
@@ -2388,7 +2388,7 @@ MonoBehaviour:
   - {fileID: 1153393592}
   - {fileID: 2031348452}
   winEvaluator: {fileID: 566961576}
-  seedGame: 1
+  seedGame: 0
 --- !u!4 &566961575
 Transform:
   m_ObjectHideFlags: 0
@@ -4853,37 +4853,37 @@ MonoBehaviour:
   - gameObject: {fileID: 397200659}
     winEffect: {fileID: 0}
     minRng: 0
-    maxRng: 15
+    maxRng: 30
   - gameObject: {fileID: 1777768703}
     winEffect: {fileID: 0}
-    minRng: 16
-    maxRng: 20
+    minRng: 31
+    maxRng: 60
   - gameObject: {fileID: 1082718082}
     winEffect: {fileID: 0}
-    minRng: 21
-    maxRng: 50
+    minRng: 61
+    maxRng: 65
   - gameObject: {fileID: 586976704}
     winEffect: {fileID: 0}
-    minRng: 51
-    maxRng: 65
+    minRng: 66
+    maxRng: 70
   - gameObject: {fileID: 119188399}
     winEffect: {fileID: 0}
-    minRng: 66
-    maxRng: 95
+    minRng: 71
+    maxRng: 75
   - gameObject: {fileID: 844735366}
     winEffect: {fileID: 0}
-    minRng: 96
-    maxRng: 105
+    minRng: 76
+    maxRng: 80
   - gameObject: {fileID: 193881777}
     winEffect: {fileID: 0}
-    minRng: 106
-    maxRng: 115
+    minRng: 81
+    maxRng: 120
   - gameObject: {fileID: 1380546792}
     winEffect: {fileID: 0}
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 1
+  targetStopPos: 0
   minSpinTime: 1
   currSpinTime: 0
   spinSpeed: 7
@@ -5027,37 +5027,37 @@ MonoBehaviour:
   - gameObject: {fileID: 2062540089}
     winEffect: {fileID: 0}
     minRng: 0
-    maxRng: 15
+    maxRng: 30
   - gameObject: {fileID: 1434188271}
     winEffect: {fileID: 0}
-    minRng: 16
-    maxRng: 20
+    minRng: 31
+    maxRng: 60
   - gameObject: {fileID: 2127128805}
     winEffect: {fileID: 0}
-    minRng: 21
-    maxRng: 50
+    minRng: 61
+    maxRng: 65
   - gameObject: {fileID: 980524698}
     winEffect: {fileID: 0}
-    minRng: 51
-    maxRng: 65
+    minRng: 66
+    maxRng: 70
   - gameObject: {fileID: 872179307}
     winEffect: {fileID: 0}
-    minRng: 66
-    maxRng: 95
+    minRng: 71
+    maxRng: 75
   - gameObject: {fileID: 1453044373}
     winEffect: {fileID: 0}
-    minRng: 96
-    maxRng: 105
+    minRng: 76
+    maxRng: 80
   - gameObject: {fileID: 1041555189}
     winEffect: {fileID: 0}
-    minRng: 106
-    maxRng: 115
+    minRng: 81
+    maxRng: 120
   - gameObject: {fileID: 651836700}
     winEffect: {fileID: 0}
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 1
+  targetStopPos: 0
   minSpinTime: 1
   currSpinTime: 0
   spinSpeed: 7
@@ -7788,37 +7788,37 @@ MonoBehaviour:
   - gameObject: {fileID: 1570764967}
     winEffect: {fileID: 0}
     minRng: 0
-    maxRng: 15
+    maxRng: 30
   - gameObject: {fileID: 773086548}
     winEffect: {fileID: 0}
-    minRng: 16
-    maxRng: 20
+    minRng: 31
+    maxRng: 60
   - gameObject: {fileID: 1246781172}
     winEffect: {fileID: 0}
-    minRng: 21
-    maxRng: 50
+    minRng: 61
+    maxRng: 65
   - gameObject: {fileID: 956253525}
     winEffect: {fileID: 0}
-    minRng: 51
-    maxRng: 65
+    minRng: 66
+    maxRng: 70
   - gameObject: {fileID: 293748103}
     winEffect: {fileID: 0}
-    minRng: 66
-    maxRng: 95
+    minRng: 71
+    maxRng: 75
   - gameObject: {fileID: 2014928431}
     winEffect: {fileID: 0}
-    minRng: 96
-    maxRng: 105
+    minRng: 76
+    maxRng: 80
   - gameObject: {fileID: 1898720262}
     winEffect: {fileID: 0}
-    minRng: 106
-    maxRng: 115
+    minRng: 81
+    maxRng: 120
   - gameObject: {fileID: 1915507549}
     winEffect: {fileID: 0}
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 1
+  targetStopPos: 0
   minSpinTime: 1
   currSpinTime: 0
   spinSpeed: 7
@@ -8284,37 +8284,37 @@ MonoBehaviour:
   - gameObject: {fileID: 1590015752}
     winEffect: {fileID: 0}
     minRng: 0
-    maxRng: 15
+    maxRng: 30
   - gameObject: {fileID: 1579634844}
     winEffect: {fileID: 0}
-    minRng: 16
-    maxRng: 20
+    minRng: 31
+    maxRng: 60
   - gameObject: {fileID: 656938881}
     winEffect: {fileID: 0}
-    minRng: 21
-    maxRng: 50
+    minRng: 61
+    maxRng: 65
   - gameObject: {fileID: 761242454}
     winEffect: {fileID: 0}
-    minRng: 51
-    maxRng: 65
+    minRng: 66
+    maxRng: 70
   - gameObject: {fileID: 1916252733}
     winEffect: {fileID: 0}
-    minRng: 66
-    maxRng: 95
+    minRng: 71
+    maxRng: 75
   - gameObject: {fileID: 64826559}
     winEffect: {fileID: 0}
-    minRng: 96
-    maxRng: 105
+    minRng: 76
+    maxRng: 80
   - gameObject: {fileID: 692095790}
     winEffect: {fileID: 0}
-    minRng: 106
-    maxRng: 115
+    minRng: 81
+    maxRng: 120
   - gameObject: {fileID: 1900779913}
     winEffect: {fileID: 0}
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 1
+  targetStopPos: 0
   minSpinTime: 1
   currSpinTime: 0
   spinSpeed: 7
