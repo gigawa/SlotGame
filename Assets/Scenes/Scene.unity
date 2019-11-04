@@ -645,7 +645,7 @@ MonoBehaviour:
   - {fileID: 771050672}
   - {fileID: 666298805}
   spaceBetweenSymbols: 2
-  targetStopPos: 0
+  targetStopPos: 1
   minSpinTime: 1
   currSpinTime: 0
   spinSpeed: 7
@@ -1441,7 +1441,7 @@ MonoBehaviour:
   - {fileID: 1923799909}
   - {fileID: 1612993457}
   winEvaluator: {fileID: 566961576}
-  seedGame: 0
+  seedGame: 1
 --- !u!4 &566961575
 Transform:
   m_ObjectHideFlags: 0
@@ -1472,6 +1472,52 @@ MonoBehaviour:
   reels: []
   windowHeight: 3
   windowWidth: 5
+  winCombos:
+  - symbols:
+    - icon_1
+    - icon_1
+    - icon_1
+    win: 1000
+  - symbols:
+    - icon_2
+    - icon_2
+    - icon_2
+    win: 1000
+  - symbols:
+    - icon_3
+    - icon_3
+    - icon_3
+    win: 1000
+  - symbols:
+    - icon_4
+    - icon_4
+    - icon_4
+    win: 1000
+  - symbols:
+    - icon_5
+    - icon_5
+    - icon_5
+    win: 1000
+  - symbols:
+    - icon_6
+    - icon_6
+    - icon_6
+    win: 1000
+  - symbols:
+    - icon_7
+    - icon_7
+    - icon_7
+    win: 1000
+  - symbols:
+    - icon_8
+    - icon_8
+    - icon_8
+    win: 1000
+  lines:
+  - position: 0000000000000000000000000000000000000000
+  - position: 0100000001000000010000000100000001000000
+  - position: 0200000002000000020000000200000002000000
+  - position: 0000000001000000020000000100000000000000
 --- !u!1 &569596873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1993,7 +2039,7 @@ MonoBehaviour:
   - {fileID: 1251104891}
   - {fileID: 771138337}
   spaceBetweenSymbols: 2
-  targetStopPos: 1
+  targetStopPos: 7
   minSpinTime: 1
   currSpinTime: 0
   spinSpeed: 7

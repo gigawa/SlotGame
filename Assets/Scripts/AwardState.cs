@@ -15,6 +15,7 @@ namespace Assets.Scripts
             base.Enter();
 
             stateMachine.winEvaluator.EvaluateWin();
+            stateMachine.ChangeState<IdleState>();
         }
     }
 }
