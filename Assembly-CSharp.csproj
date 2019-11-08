@@ -61,14 +61,45 @@
      <Compile Include="Assets\ByTheTale\StateMachine\MachineState.cs" />
      <Compile Include="Assets\ByTheTale\StateMachine\State.cs" />
      <Compile Include="Assets\ByTheTale\StateMachine\StateInterface.cs" />
-     <Compile Include="Assets\Scripts\AwardState.cs" />
-     <Compile Include="Assets\Scripts\BaseGameController.cs" />
-     <Compile Include="Assets\Scripts\IdleState.cs" />
+     <Compile Include="Assets\Scripts\InputMangaer.cs" />
+     <Compile Include="Assets\Scripts\Logic States\AwardState.cs" />
+     <Compile Include="Assets\Scripts\Logic States\BaseGameController.cs" />
+     <Compile Include="Assets\Scripts\Logic States\IdleState.cs" />
+     <Compile Include="Assets\Scripts\Logic States\ReelSpinState.cs" />
+     <Compile Include="Assets\Scripts\LogicStateMachine.cs" />
      <Compile Include="Assets\Scripts\Reel.cs" />
-     <Compile Include="Assets\Scripts\ReelSpinState.cs" />
-     <Compile Include="Assets\Scripts\StateMachine.cs" />
      <Compile Include="Assets\Scripts\WinEvaluator.cs" />
      <None Include="Assets\ByTheTale\StateMachine\README.txt" />
+ <Reference Include="Unity.Timeline.Editor">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.VSCode.Editor">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Timeline">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.CollabProxy.Editor">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Rider.Editor">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.VisualStudio.Editor">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a8/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
  </Reference>
@@ -597,48 +628,6 @@
  <Reference Include="Boo.Lang">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a8/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Unity.Timeline.Editor.csproj">
-      <Project>{C126EFC4-C084-9F0E-427F-9659BD4CC5D6}</Project>
-      <Name>Unity.Timeline.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VSCode.Editor.csproj">
-      <Project>{1215EC91-F2AE-106E-CBB6-B9F4AA05A0B2}</Project>
-      <Name>Unity.VSCode.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
-      <Project>{334615DB-E008-88EC-1C97-BFF7B937D656}</Project>
-      <Name>Unity.TextMeshPro.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{12A4FA1E-0616-F653-4A44-397F3DBCAAC8}</Project>
-      <Name>UnityEngine.UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Timeline.csproj">
-      <Project>{ECAA816B-D9BE-18F8-26CA-AA001E999104}</Project>
-      <Name>Unity.Timeline</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
-      <Project>{BB9E2AC8-00ED-5C39-B55F-061601987765}</Project>
-      <Name>Unity.CollabProxy.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Rider.Editor.csproj">
-      <Project>{AACAF25B-9EE1-0505-0720-92348415D5D6}</Project>
-      <Name>Unity.Rider.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualStudio.Editor.csproj">
-      <Project>{C2CFF867-D2B8-361B-8BF3-63ABD5BEB3CD}</Project>
-      <Name>Unity.VisualStudio.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{04CEF7B7-EBD2-4C6E-24AC-69F15C0A6810}</Project>
-      <Name>Unity.TextMeshPro</Name>
-    </ProjectReference>
-    <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{9EFFFDB4-6D35-BBB9-152A-78BD8FECCE24}</Project>
-      <Name>UnityEditor.UI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

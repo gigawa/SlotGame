@@ -4,13 +4,13 @@ namespace Assets.Scripts
 {
     class ReelSpinState : ByTheTale.StateMachine.State
     {
-        public StateMachine stateMachine { get { return (StateMachine)machine; } }
+        public LogicStateMachine stateMachine { get { return (LogicStateMachine)machine; } }
 
         public override void Enter()
         {
             base.Enter();
 
-            Debug.Log("Spin");
+            stateMachine.inputManager.DisableInputs();
 
             foreach (Reel reel in stateMachine.reels)
             {

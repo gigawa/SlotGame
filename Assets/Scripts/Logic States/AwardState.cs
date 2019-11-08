@@ -8,13 +8,14 @@ namespace Assets.Scripts
 {
     class AwardState : ByTheTale.StateMachine.State
     {
-        public StateMachine stateMachine { get { return (StateMachine)machine; } }
+        public LogicStateMachine stateMachine { get { return (LogicStateMachine)machine; } }
 
         public override void Enter()
         {
             base.Enter();
 
-            stateMachine.winEvaluator.EvaluateWin();
+            int award = stateMachine.winEvaluator.EvaluateWin() * stateMachine.betLevels[stateMachine.betLevelIndex];
+            stateMachine.AddCredits(award);
             stateMachine.ChangeState<IdleState>();
         }
     }

@@ -37,7 +37,7 @@ namespace Assets.Scripts
         public float topPosition;
         public int maxRng;
 
-        public StateMachine stateMachine;
+        public LogicStateMachine stateMachine;
 
         // Start is called before the first frame update
         void Start()

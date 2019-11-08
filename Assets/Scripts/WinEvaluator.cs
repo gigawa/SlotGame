@@ -32,7 +32,7 @@ namespace Assets.Scripts
             public int winLength = 0;
         };
 
-        public StateMachine stateMachine;
+        public LogicStateMachine stateMachine;
         public Symbol[,] symbolWindow;
         private Reel[] reels;
         public int windowHeight;
