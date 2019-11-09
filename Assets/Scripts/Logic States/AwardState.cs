@@ -15,6 +15,7 @@ namespace Assets.Scripts
             base.Enter();
 
             int award = stateMachine.winEvaluator.EvaluateWin() * stateMachine.betLevels[stateMachine.betLevelIndex];
+            stateMachine.UpdateAwardText(award);
             stateMachine.AddCredits(award);
             stateMachine.ChangeState<IdleState>();
         }

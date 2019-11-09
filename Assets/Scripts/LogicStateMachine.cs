@@ -25,6 +25,20 @@ namespace Assets.Scripts
         public Text CreditText;
         public Text BetText;
 
+        public struct RollupText
+        {
+            public Text textObject;
+            public int target;
+            public double length;
+
+            public RollupText(Text text, int targetInt, double lengthS)
+            {
+                textObject = text;
+                target = targetInt;
+                length = lengthS;
+            }
+        }
+
         public override void AddStates()
         {
             AddState<IdleState>();
@@ -48,7 +62,8 @@ namespace Assets.Scripts
             minBet = 50;
 
             UpdateBetText();
-            UpdateCreditText();
+            SetCreditText();
+            UpdateAwardText(0);
 
             inputManager.changeBet += UpdateBetText;
         }
@@ -56,8 +71,7 @@ namespace Assets.Scripts
         public void AddCredits(int cred)
         {
             credits += cred;
-            CreditText.text = credits.ToString();
-            UpdateCreditText();
+            RollupCreditText();
         }
 
         public void SubscribeToStateEvents ()
@@ -70,9 +84,54 @@ namespace Assets.Scripts
             BetText.text = (betLevels[betLevelIndex] * minBet).ToString();
         }
 
-        void UpdateCreditText()
+        void SetCreditText()
         {
             CreditText.text = credits.ToString();
+        }
+
+        void RollupCreditText ()
+        {
+            RollupText rollupText = new RollupText(CreditText, credits, 0.75);
+            StartCoroutine("NumberRollUp", rollupText);
+        }
+
+        public void UpdateAwardText(int award)
+        {
+            RollupText rollupText = new RollupText(AwardText, award, 2);
+            StartCoroutine("NumberRollUp", rollupText);
+        }
+
+        /// <summary>
+        /// Increments text value until reaches target value
+        /// </summary>
+        /// <param name="rollupText"></param>
+        /// <returns></returns>
+        public IEnumerator NumberRollUp(RollupText rollupText)
+        {
+            Debug.Log("Roll Up");
+            Text theText = rollupText.textObject;
+            int targetNumber = rollupText.target;
+            double length = rollupText.length;
+
+            int currentNumber = int.Parse(theText.text);
+            float currentFloat = currentNumber;
+
+            float diff = targetNumber - currentNumber;
+
+            // text increments up while less than target
+            Debug.Log("Current: " + currentNumber + " Target: " + targetNumber);
+            while (currentNumber < targetNumber)
+            {
+                Debug.Log("Roll Up");
+                currentFloat += Time.deltaTime * (diff / (float)length);
+                currentNumber = (int)currentFloat;
+                theText.text = currentNumber.ToString();
+
+                yield return null;
+            }
+            theText.text = targetNumber.ToString();
+
+            yield return null;
         }
 
         void PlaceBet ()
@@ -80,7 +139,8 @@ namespace Assets.Scripts
             if (credits >= betLevels[betLevelIndex] * minBet)
             {
                 credits -= betLevels[betLevelIndex] * minBet;
-                UpdateCreditText();
+                SetCreditText();
+                UpdateAwardText(0);
                 SpinReels();
             }
         }

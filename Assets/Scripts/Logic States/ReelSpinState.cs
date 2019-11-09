@@ -12,6 +12,8 @@ namespace Assets.Scripts
 
             stateMachine.inputManager.DisableInputs();
 
+            // Set reel stops for each reel
+            // Random number if not seeding game
             foreach (Reel reel in stateMachine.reels)
             {
                 if(!stateMachine.seedGame)

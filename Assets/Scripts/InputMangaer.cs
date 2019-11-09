@@ -62,6 +62,9 @@ namespace Assets.Scripts
             }
         }
 
+        /// <summary>
+        /// Disables all inputs
+        /// </summary>
         public void DisableInputs()
         {
             repeatBetEnabled = false;
@@ -70,6 +73,9 @@ namespace Assets.Scripts
             canChangeBet = false;
         }
 
+        /// <summary>
+        /// Enables all inputs
+        /// </summary>
         public void EnableInputs()
         {
             repeatBetEnabled = true;
