@@ -134,22 +134,17 @@ namespace Assets.Scripts
 
             // gets win amount based on possible combos
             int win = 0;
-            int count = 0;
             foreach(WinCombo combo in winCombos)
             {
-                win += CheckCombo(combo);
-                count++;
+                CheckCombo(combo);
             }
 
-            Debug.Log("Combo Count: " + count);
-
-            // logging
+            // gets all line wins
             for(int i = 0; i < lines.Count; i++)
             {
                 Debug.Log("Line " + i + " Win: " + lines[i].winAmount);
+                win += lines[i].winAmount;
             }
-
-            Debug.Log("Total Win: " + win);
 
             return win;
         }
@@ -159,10 +154,9 @@ namespace Assets.Scripts
         /// </summary>
         /// <param name="combo"></param>
         /// <returns></returns>
-        public int CheckCombo(WinCombo combo)
+        public void CheckCombo(WinCombo combo)
         {
             int comboWin = 0;
-            Debug.Log("Combo: " + combo.symbols[0]);
 
             // Iterate through all lines looking for combos
             for(int i = 0; i < lines.Count; i++)
@@ -170,16 +164,12 @@ namespace Assets.Scripts
                 // Check line only if bigger win possible
                 if (lines[i].winAmount < combo.win)
                 {
-                    Debug.Log("First Loop");
                     bool win = true;
                     for (int j = 0; j < combo.symbols.Count; j++)
                     {
-                        Debug.Log("Second Loop");
                         int position = lines[i].position[j];
                         if (symbolWindow[j, position].gameObject.name != combo.symbols[j])
                         {
-                            Debug.Log(symbolWindow[j, position].gameObject.name + " != " + combo.symbols[j]);
-                            Debug.Log("Line " + i + " No Match: " + j + ", " + position);
                             win = false;
                         }
                     }
@@ -187,7 +177,6 @@ namespace Assets.Scripts
                     // set combo win and win for line
                     if (win)
                     {
-                        Debug.Log("Win");
                         comboWin += combo.win;
                         lines[i].winAmount = combo.win;
                         lines[i].winLength = combo.symbols.Count;
@@ -195,8 +184,6 @@ namespace Assets.Scripts
                     }
                 }
             }
-
-            return comboWin;
         }
 
         public void StartWinCycle ()

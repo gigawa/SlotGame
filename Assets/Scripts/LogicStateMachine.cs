@@ -108,7 +108,6 @@ namespace Assets.Scripts
         /// <returns></returns>
         public IEnumerator NumberRollUp(RollupText rollupText)
         {
-            Debug.Log("Roll Up");
             Text theText = rollupText.textObject;
             int targetNumber = rollupText.target;
             double length = rollupText.length;
@@ -119,10 +118,8 @@ namespace Assets.Scripts
             float diff = targetNumber - currentNumber;
 
             // text increments up while less than target
-            Debug.Log("Current: " + currentNumber + " Target: " + targetNumber);
             while (currentNumber < targetNumber)
             {
-                Debug.Log("Roll Up");
                 currentFloat += Time.deltaTime * (diff / (float)length);
                 currentNumber = (int)currentFloat;
                 theText.text = currentNumber.ToString();
