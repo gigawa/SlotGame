@@ -16,9 +16,23 @@ namespace Assets.Scripts
         [Serializable]
         public class WinCombo
         {
-            public string[] symbols;
+            public List<string> symbols;
             public int win;
+
+            public WinCombo()
+            {
+                symbols = new List<string>();
+            }
         };
+
+        [Serializable]
+        public class SimpleComboTemplate
+        {
+            public string symbol;
+            public int[] wins;
+            public int minLength;
+            public int maxLength;
+        }
 
         /// <summary>
         /// Line - position is y position with index being the reel
@@ -44,12 +58,15 @@ namespace Assets.Scripts
         private bool playingWinCycle = false;
         private bool shouldPlayCycle = false;
 
+        public SimpleComboTemplate[] comboTemplates;
+
         public Coroutine winCycleInstance;
 
         public void Start()
         {
             reels = stateMachine.reels;
             symbolWindow = new Symbol[windowWidth, windowHeight];
+            SetupSimpleCombos();
         }
 
         public void FixedUpdate()
@@ -60,6 +77,31 @@ namespace Assets.Scripts
                 {
                     playingWinCycle = true;
                     winCycleInstance = StartCoroutine(PlayWinCycle());
+                }
+            }
+        }
+
+        /// <summary>
+        /// Setup basic combos - 3, 4, 5 in a row type combos
+        /// </summary>
+        public void SetupSimpleCombos()
+        {
+            if (winCombos == null)
+            {
+                winCombos = new List<WinCombo>();
+            }
+
+            foreach(var combo in comboTemplates)
+            {
+                for(int i = 0; i <= combo.maxLength - combo.minLength; i++)
+                {
+                    WinCombo win = new WinCombo();
+                    for(int j = 0; j < combo.minLength + i; j++)
+                    {
+                        win.symbols.Add(combo.symbol);
+                    }
+                    win.win = combo.wins[i];
+                    winCombos.Add(win);
                 }
             }
         }
@@ -112,18 +154,25 @@ namespace Assets.Scripts
             return win;
         }
 
-        // Checks combo for total win
+        /// <summary>
+        /// Checks combo for total win and saves win amount and length
+        /// </summary>
+        /// <param name="combo"></param>
+        /// <returns></returns>
         public int CheckCombo(WinCombo combo)
         {
             int comboWin = 0;
             Debug.Log("Combo: " + combo.symbols[0]);
+
+            // Iterate through all lines looking for combos
             for(int i = 0; i < lines.Count; i++)
             {
+                // Check line only if bigger win possible
                 if (lines[i].winAmount < combo.win)
                 {
                     Debug.Log("First Loop");
                     bool win = true;
-                    for (int j = 0; j < combo.symbols.Length; j++)
+                    for (int j = 0; j < combo.symbols.Count; j++)
                     {
                         Debug.Log("Second Loop");
                         int position = lines[i].position[j];
@@ -141,7 +190,7 @@ namespace Assets.Scripts
                         Debug.Log("Win");
                         comboWin += combo.win;
                         lines[i].winAmount = combo.win;
-                        lines[i].winLength = combo.symbols.Length;
+                        lines[i].winLength = combo.symbols.Count;
                         //Debug.Log("Line " + i + " Combo Win: " + combo.win);
                     }
                 }
@@ -164,7 +213,7 @@ namespace Assets.Scripts
 
         IEnumerator PlayWinCycle()
         {
-            Debug.Log("Play Win Cycle");
+            //Debug.Log("Play Win Cycle");
             for(int i = 0; i < lines.Count; i++)
             {
                 if(lines[i].winLength > 0)
@@ -175,7 +224,7 @@ namespace Assets.Scripts
                         symbolWindow[j, lines[i].position[j]].winEffect.SetActive(true);
                     }
 
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(1.5f);
 
                     for (int j = 0; j < lines[i].winLength; j++)
                     {
@@ -185,7 +234,7 @@ namespace Assets.Scripts
                 }
             }
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
 
             playingWinCycle = false;
         }
