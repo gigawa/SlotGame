@@ -28,6 +28,8 @@ namespace Assets.Scripts
             stateMachine.inputManager.addCredits += AddCredits;
             stateMachine.winEvaluator.StartWinCycle();
 
+            stateMachine.RollupCreditText();
+
             stateMachine.inputManager.EnableInputs();
         }
 
@@ -52,6 +54,7 @@ namespace Assets.Scripts
         public void AddCredits()
         {
             stateMachine.AddCredits(1000);
+            stateMachine.RollupCreditText();
         }
 
         public void CommitBet()

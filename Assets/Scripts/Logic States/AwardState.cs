@@ -15,9 +15,7 @@ namespace Assets.Scripts
         {
             base.Enter();
 
-            Debug.Log("History Count: " + stateMachine.dataManager.gameData.gameHistory.Count.ToString());
-
-            stateMachine.UpdateAwardText(stateMachine.dataManager.gameData.gameHistory[stateMachine.dataManager.gameData.gameHistory.Count - 1].totalWin);
+            stateMachine.UpdateAwardText(stateMachine.dataManager.GetLastGame().totalWin);
             stateMachine.ChangeState<IdleState>();
         }
     }

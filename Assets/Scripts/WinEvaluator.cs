@@ -56,7 +56,7 @@ namespace Assets.Scripts
         public List<Line> lines;
 
         private bool playingWinCycle = false;
-        private bool shouldPlayCycle = false;
+        public bool shouldPlayCycle = false;
 
         public SimpleComboTemplate[] comboTemplates;
 
@@ -124,7 +124,7 @@ namespace Assets.Scripts
             // gets all symbols in window now that spin is done
             for (int i = 0; i < windowWidth; i++)
             {
-                int position = reels[i].stopPosition - 1 > -1 ? reels[i].stopPosition - 1 : reels[i].symbols.Length - 1;
+                int position = reels[i].targetStopPos - 1 > -1 ? reels[i].targetStopPos - 1 : reels[i].symbols.Length - 1;
                 for (int j = 0; j < windowHeight; j++)
                 {
                     symbolWindow[i,j] = reels[i].symbols[position];

@@ -19,6 +19,11 @@ namespace Assets.Scripts
 
         public GameData gameData;
 
+        public GameCycleData GetLastGame ()
+        {
+            return gameData.gameHistory[gameData.gameHistory.Count - 1];
+        }
+
         public void CommitCycle (GameCycleData cycleData)
         {
             if(gameData.gameHistory.Count > 10)

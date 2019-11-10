@@ -72,7 +72,6 @@ namespace Assets.Scripts
         public void AddCredits(int cred)
         {
             credits += cred;
-            RollupCreditText();
         }
 
         void UpdateBetText ()
@@ -85,7 +84,7 @@ namespace Assets.Scripts
             CreditText.text = credits.ToString();
         }
 
-        void RollupCreditText ()
+        public void RollupCreditText ()
         {
             RollupText rollupText = new RollupText(CreditText, credits, 0.5);
             StartCoroutine("NumberRollUp", rollupText);
