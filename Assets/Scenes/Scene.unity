@@ -1476,7 +1476,7 @@ MonoBehaviour:
   targetStopPos: 0
   rotations: 3
   currSpinTime: 0
-  desiredSpinSpeed: 15
+  desiredSpinSpeed: 25
   spinSpeed: 7
   topPosition: 12
   maxRng: 0
@@ -2793,35 +2793,35 @@ MonoBehaviour:
     winLength: 0
   comboTemplates:
   - symbol: icon_1
-    wins: 320000007d000000fa000000
+    wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
   - symbol: icon_2
-    wins: 320000007d000000fa000000
+    wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
   - symbol: icon_3
-    wins: 320000007d000000fa000000
+    wins: 190000003200000064000000
     minLength: 3
     maxLength: 5
   - symbol: icon_4
-    wins: 320000007d000000fa000000
+    wins: 190000003200000064000000
     minLength: 3
     maxLength: 5
   - symbol: icon_5
-    wins: 320000007d000000fa000000
+    wins: 320000006400000096000000
     minLength: 3
     maxLength: 5
   - symbol: icon_6
-    wins: 320000007d000000fa000000
+    wins: 320000006400000096000000
     minLength: 3
     maxLength: 5
   - symbol: icon_7
-    wins: 320000007d000000fa000000
+    wins: 32000000960000002c010000
     minLength: 3
     maxLength: 5
   - symbol: icon_8
-    wins: 320000007d000000fa000000
+    wins: 32000000960000002c010000
     minLength: 3
     maxLength: 5
 --- !u!114 &566961577
@@ -5431,7 +5431,7 @@ MonoBehaviour:
   targetStopPos: 0
   rotations: 4
   currSpinTime: 0
-  desiredSpinSpeed: 15
+  desiredSpinSpeed: 25
   spinSpeed: 7
   topPosition: 12
   maxRng: 0
@@ -5607,7 +5607,7 @@ MonoBehaviour:
   targetStopPos: 0
   rotations: 5
   currSpinTime: 0
-  desiredSpinSpeed: 15
+  desiredSpinSpeed: 25
   spinSpeed: 7
   topPosition: 12
   maxRng: 0
@@ -8826,7 +8826,7 @@ MonoBehaviour:
   targetStopPos: 0
   rotations: 5
   currSpinTime: 0
-  desiredSpinSpeed: 15
+  desiredSpinSpeed: 25
   spinSpeed: 7
   topPosition: 12
   maxRng: 0
@@ -9324,7 +9324,7 @@ MonoBehaviour:
   targetStopPos: 0
   rotations: 3
   currSpinTime: 0
-  desiredSpinSpeed: 15
+  desiredSpinSpeed: 25
   spinSpeed: 7
   topPosition: 12
   maxRng: 0

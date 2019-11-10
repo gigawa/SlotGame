@@ -92,7 +92,6 @@ namespace Assets.Scripts
             targetStopPos = newStop;
         }
 
-        // TODO: to figure out time and necessary speed - take in desired speed to calculate approximate rotations - round that down to nearest - divide # of rotations by desired time, getting rotations per second
         /// <summary>
         /// Start spinning the reels
         /// </summary>
@@ -111,7 +110,9 @@ namespace Assets.Scripts
 
             // Determine by desired rotations
             int distanceToStart = targetStopPos - stopPosition > 0 ? targetStopPos - stopPosition : targetStopPos - stopPosition + symbols.Length;
-            int distanceToTravel = rotations * symbols.Length + distanceToStart;
+
+            // Add rotation if only have 1/4 of the reel extra to reach stop position
+            int distanceToTravel = distanceToStart > symbols.Length / 4 ? rotations * symbols.Length + distanceToStart : (rotations + 1) * symbols.Length + distanceToStart;
             spinSpeed = distanceToTravel / time;
             spinTime = time;
 
