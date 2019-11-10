@@ -28,8 +28,7 @@ namespace Assets.Scripts
         [SerializeField]
         private float spaceBetweenSymbols;
 
-        [SerializeField]
-        private int targetStopPos;
+        public int targetStopPos { get; private set; }
 
         public int rotations;
 
@@ -171,6 +170,26 @@ namespace Assets.Scripts
 
             spinning = false;
             currSpinTime = 0f;
+        }
+
+        public void SetStop(int stop)
+        {
+            stopPosition = stop;
+
+            // get position of bottom symbol
+            int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Length - 1) - (1 - stopPosition));
+
+            // set y position for each symbol
+            float yPosition = -2 * spaceBetweenSymbols;
+            for (int i = 0; i < symbols.Length; i++)
+            {
+                symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, yPosition, symbols[position].gameObject.transform.position.z);
+
+                // increment position on reels up one
+                position = position + 1 < symbols.Length ? position + 1 : 0;
+
+                yPosition += spaceBetweenSymbols;
+            }
         }
     }
 }

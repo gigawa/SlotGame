@@ -25,6 +25,9 @@ namespace Assets.Scripts
         public Text CreditText;
         public Text BetText;
 
+        public GameCycleData currentCycleData;
+        public DataManager dataManager;
+
         public struct RollupText
         {
             public Text textObject;
@@ -51,8 +54,6 @@ namespace Assets.Scripts
             awardState = GetState<AwardState>();
 
             SetInitialState<IdleState>();
-
-            SubscribeToStateEvents();
         }
 
         public void Awake()
@@ -72,11 +73,6 @@ namespace Assets.Scripts
         {
             credits += cred;
             RollupCreditText();
-        }
-
-        public void SubscribeToStateEvents ()
-        {
-            idleState.placeBet += PlaceBet;
         }
 
         void UpdateBetText ()
@@ -131,7 +127,7 @@ namespace Assets.Scripts
             yield return null;
         }
 
-        void PlaceBet ()
+        public bool PlaceBet ()
         {
             if (credits >= betLevels[betLevelIndex] * minBet)
             {
@@ -139,12 +135,21 @@ namespace Assets.Scripts
                 SetCreditText();
                 UpdateAwardText(0);
                 SpinReels();
+
+                return true;
             }
+
+            return false;
         }
 
         void SpinReels()
         {
             ChangeState<ReelSpinState>();
+        }
+
+        public void Execute ()
+        {
+            currentCycleData = dataManager.gameData.gameHistory[dataManager.gameData.gameHistory.Count - 1];
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -14,9 +15,9 @@ namespace Assets.Scripts
         {
             base.Enter();
 
-            int award = stateMachine.winEvaluator.EvaluateWin() * stateMachine.betLevels[stateMachine.betLevelIndex];
-            stateMachine.UpdateAwardText(award);
-            stateMachine.AddCredits(award);
+            Debug.Log("History Count: " + stateMachine.dataManager.gameData.gameHistory.Count.ToString());
+
+            stateMachine.UpdateAwardText(stateMachine.dataManager.gameData.gameHistory[stateMachine.dataManager.gameData.gameHistory.Count - 1].totalWin);
             stateMachine.ChangeState<IdleState>();
         }
     }

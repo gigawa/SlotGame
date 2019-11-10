@@ -10,26 +10,6 @@ namespace Assets.Scripts
         {
             base.Enter();
 
-            stateMachine.inputManager.DisableInputs();
-
-            // Set reel stops for each reel
-            // Random number if not seeding game
-            float spinTime = 1.75f;
-            float increment = 0.5f;
-            for(int i = 0; i < stateMachine.reels.Length; i++)
-            {
-                if (stateMachine.reels[i].isActiveAndEnabled)
-                {
-                    if (!stateMachine.seedGame)
-                    {
-                        int newStop = Random.Range(0, stateMachine.reels[i].maxRng);
-                        stateMachine.reels[i].SetTargetStopPosition(newStop);
-                    }
-
-                    stateMachine.reels[i].StartSpin(spinTime);
-                    spinTime += increment;
-                }
-            }
         }
 
         public override void PostExecute()

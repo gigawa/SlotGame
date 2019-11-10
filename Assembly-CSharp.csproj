@@ -61,6 +61,8 @@
      <Compile Include="Assets\ByTheTale\StateMachine\MachineState.cs" />
      <Compile Include="Assets\ByTheTale\StateMachine\State.cs" />
      <Compile Include="Assets\ByTheTale\StateMachine\StateInterface.cs" />
+     <Compile Include="Assets\Scripts\DataManager.cs" />
+     <Compile Include="Assets\Scripts\GameData.cs" />
      <Compile Include="Assets\Scripts\InputMangaer.cs" />
      <Compile Include="Assets\Scripts\Logic States\AwardState.cs" />
      <Compile Include="Assets\Scripts\Logic States\BaseGameController.cs" />

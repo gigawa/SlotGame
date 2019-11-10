@@ -1473,8 +1473,7 @@ MonoBehaviour:
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 0
-  rotations: 3
+  rotations: 2
   currSpinTime: 0
   desiredSpinSpeed: 25
   spinSpeed: 7
@@ -2702,6 +2701,7 @@ GameObject:
   - component: {fileID: 566961574}
   - component: {fileID: 566961576}
   - component: {fileID: 566961577}
+  - component: {fileID: 566961578}
   m_Layer: 0
   m_Name: StateMachine
   m_TagString: Untagged
@@ -2733,6 +2733,14 @@ MonoBehaviour:
   AwardText: {fileID: 90894532}
   CreditText: {fileID: 1687346514}
   BetText: {fileID: 969552502}
+  currentCycleData:
+    reelStops: 
+    lines: []
+    totalWin: 0
+    betAmount: 0
+    startingCredits: 0
+    endingCredits: 0
+  dataManager: {fileID: 566961578}
 --- !u!4 &566961575
 Transform:
   m_ObjectHideFlags: 0
@@ -2840,6 +2848,23 @@ MonoBehaviour:
   acceptCredits: 0
   cashOutEnabled: 0
   canChangeBet: 0
+--- !u!114 &566961578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566961573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79021119332865e42b7a6df7a21b5d6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameData:
+    gameHistory: []
+    credits: 0
+    betLevelIndex: 0
+    currentStateName: 
 --- !u!1 &586976704
 GameObject:
   m_ObjectHideFlags: 0
@@ -5428,7 +5453,6 @@ MonoBehaviour:
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 0
   rotations: 4
   currSpinTime: 0
   desiredSpinSpeed: 25
@@ -5604,7 +5628,6 @@ MonoBehaviour:
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 0
   rotations: 5
   currSpinTime: 0
   desiredSpinSpeed: 25
@@ -8823,7 +8846,6 @@ MonoBehaviour:
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 0
   rotations: 5
   currSpinTime: 0
   desiredSpinSpeed: 25
@@ -9321,7 +9343,6 @@ MonoBehaviour:
     minRng: 116
     maxRng: 135
   spaceBetweenSymbols: 2
-  targetStopPos: 0
   rotations: 3
   currSpinTime: 0
   desiredSpinSpeed: 25
