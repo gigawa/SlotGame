@@ -665,15 +665,15 @@ RectTransform:
   m_GameObject: {fileID: 90894530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.3260938, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1981738499}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.7, y: -124.4}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -2.7, y: -139.4}
+  m_SizeDelta: {x: 198, y: 52.69}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &90894532
 MonoBehaviour:
@@ -700,8 +700,8 @@ MonoBehaviour:
     m_FontSize: 14
     m_FontStyle: 1
     m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 14
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1474,11 +1474,13 @@ MonoBehaviour:
     maxRng: 135
   spaceBetweenSymbols: 2
   targetStopPos: 0
-  minSpinTime: 1
+  rotations: 3
   currSpinTime: 0
+  desiredSpinSpeed: 15
   spinSpeed: 7
   topPosition: 12
   maxRng: 0
+  symbolDistance: 0
   stateMachine: {fileID: 0}
 --- !u!4 &311167083
 Transform:
@@ -2359,7 +2361,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 93ecd16f5a0dace498ae856d8b71a435, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2676,7 +2678,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 93ecd16f5a0dace498ae856d8b71a435, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2760,53 +2762,7 @@ MonoBehaviour:
   stateMachine: {fileID: 566961574}
   windowHeight: 3
   windowWidth: 5
-  winCombos:
-  - symbols:
-    - icon_1
-    - icon_1
-    - icon_1
-    win: 1000
-  - symbols:
-    - icon_2
-    - icon_2
-    - icon_2
-    win: 1000
-  - symbols:
-    - icon_3
-    - icon_3
-    - icon_3
-    win: 1000
-  - symbols:
-    - icon_4
-    - icon_4
-    - icon_4
-    win: 1000
-  - symbols:
-    - icon_5
-    - icon_5
-    - icon_5
-    win: 1000
-  - symbols:
-    - icon_6
-    - icon_6
-    - icon_6
-    win: 1000
-  - symbols:
-    - icon_7
-    - icon_7
-    - icon_7
-    win: 1000
-  - symbols:
-    - icon_8
-    - icon_8
-    - icon_8
-    win: 1000
-  - symbols:
-    - icon_1
-    - icon_1
-    - icon_1
-    - icon_1
-    win: 2000
+  winCombos: []
   lines:
   - position: 0000000000000000000000000000000000000000
     winAmount: 0
@@ -2835,6 +2791,39 @@ MonoBehaviour:
   - position: 0200000002000000020000000200000002000000
     winAmount: 0
     winLength: 0
+  comboTemplates:
+  - symbol: icon_1
+    wins: 320000007d000000fa000000
+    minLength: 3
+    maxLength: 5
+  - symbol: icon_2
+    wins: 320000007d000000fa000000
+    minLength: 3
+    maxLength: 5
+  - symbol: icon_3
+    wins: 320000007d000000fa000000
+    minLength: 3
+    maxLength: 5
+  - symbol: icon_4
+    wins: 320000007d000000fa000000
+    minLength: 3
+    maxLength: 5
+  - symbol: icon_5
+    wins: 320000007d000000fa000000
+    minLength: 3
+    maxLength: 5
+  - symbol: icon_6
+    wins: 320000007d000000fa000000
+    minLength: 3
+    maxLength: 5
+  - symbol: icon_7
+    wins: 320000007d000000fa000000
+    minLength: 3
+    maxLength: 5
+  - symbol: icon_8
+    wins: 320000007d000000fa000000
+    minLength: 3
+    maxLength: 5
 --- !u!114 &566961577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3068,7 +3057,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: b8e69fe68d5485e48a13f92780ad281a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4823,7 +4812,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935922357}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 402787903}
@@ -5440,11 +5429,13 @@ MonoBehaviour:
     maxRng: 135
   spaceBetweenSymbols: 2
   targetStopPos: 0
-  minSpinTime: 1
+  rotations: 4
   currSpinTime: 0
+  desiredSpinSpeed: 15
   spinSpeed: 7
   topPosition: 12
   maxRng: 0
+  symbolDistance: 0
   stateMachine: {fileID: 0}
 --- !u!4 &1091668134
 Transform:
@@ -5614,11 +5605,13 @@ MonoBehaviour:
     maxRng: 135
   spaceBetweenSymbols: 2
   targetStopPos: 0
-  minSpinTime: 1
+  rotations: 5
   currSpinTime: 0
+  desiredSpinSpeed: 15
   spinSpeed: 7
   topPosition: 12
   maxRng: 0
+  symbolDistance: 0
   stateMachine: {fileID: 0}
 --- !u!4 &1153393593
 Transform:
@@ -5703,7 +5696,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: e8c6f9782e431f744a6c1f519bde5b08, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5723,8 +5716,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176617829}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.079826705, y: -3.4933314, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalPosition: {x: -0.079826705, y: -3.84, z: 0}
+  m_LocalScale: {x: 1.75, y: 1.75, z: 1.5}
   m_Children: []
   m_Father: {fileID: 935922358}
   m_RootOrder: 4
@@ -6593,7 +6586,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: b8e69fe68d5485e48a13f92780ad281a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6930,7 +6923,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 93ecd16f5a0dace498ae856d8b71a435, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -8609,7 +8602,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!1 &2014928431
 GameObject:
@@ -8831,11 +8824,13 @@ MonoBehaviour:
     maxRng: 135
   spaceBetweenSymbols: 2
   targetStopPos: 0
-  minSpinTime: 1
+  rotations: 5
   currSpinTime: 0
+  desiredSpinSpeed: 15
   spinSpeed: 7
   topPosition: 12
   maxRng: 0
+  symbolDistance: 0
   stateMachine: {fileID: 0}
 --- !u!4 &2031348453
 Transform:
@@ -9327,11 +9322,13 @@ MonoBehaviour:
     maxRng: 135
   spaceBetweenSymbols: 2
   targetStopPos: 0
-  minSpinTime: 1
+  rotations: 3
   currSpinTime: 0
+  desiredSpinSpeed: 15
   spinSpeed: 7
   topPosition: 12
   maxRng: 0
+  symbolDistance: 0
   stateMachine: {fileID: 0}
 --- !u!4 &2135828131
 Transform:
@@ -9424,7 +9421,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 93ecd16f5a0dace498ae856d8b71a435, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

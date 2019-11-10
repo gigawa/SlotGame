@@ -193,7 +193,10 @@ namespace Assets.Scripts
 
         public void StopWinCycle ()
         {
-            StopCoroutine(winCycleInstance);
+            if(winCycleInstance != null)
+            {
+                StopCoroutine(winCycleInstance);
+            }
             playingWinCycle = false;
             shouldPlayCycle = false;
         }

@@ -31,11 +31,17 @@ namespace Assets.Scripts
         [SerializeField]
         private int targetStopPos;
 
-        public float minSpinTime;
+        public int rotations;
+
         public float currSpinTime;
+        public float desiredSpinSpeed;
         public float spinSpeed;
         public float topPosition;
         public int maxRng;
+
+        private float spinTime;
+
+        public float symbolDistance;
 
         public LogicStateMachine stateMachine;
 
@@ -57,7 +63,7 @@ namespace Assets.Scripts
         // Update is called once per frame
         void Update()
         {
-            if (spinning && (stopPosition != targetStopPos || currSpinTime < minSpinTime))
+            if (spinning && (stopPosition != targetStopPos || currSpinTime < (spinTime - 0.25f)))
             {
                 SpinReel();
             }
@@ -86,12 +92,28 @@ namespace Assets.Scripts
             targetStopPos = newStop;
         }
 
+        // TODO: to figure out time and necessary speed - take in desired speed to calculate approximate rotations - round that down to nearest - divide # of rotations by desired time, getting rotations per second
         /// <summary>
         /// Start spinning the reels
         /// </summary>
-        public void StartSpin()
+        public void StartSpin(float time)
         {
             spinning = true;
+
+            // Determine by desired speed
+            //int distanceToStart = targetStopPos - stopPosition > 0 ? targetStopPos - stopPosition : targetStopPos - stopPosition + symbols.Length;
+            //float firstRotationTime = distanceToStart * spaceBetweenSymbols / desiredSpinSpeed;
+            //float rotationTime = symbols.Length * spaceBetweenSymbols / desiredSpinSpeed;
+            //int desiredRotations = Mathf.RoundToInt(time - firstRotationTime > rotationTime ? (time - firstRotationTime) / rotationTime : 1);
+            //int distanceToTravel = desiredRotations * symbols.Length + distanceToStart;
+            //spinSpeed = distanceToTravel / time;
+            //spinTime = time;
+
+            // Determine by desired rotations
+            int distanceToStart = targetStopPos - stopPosition > 0 ? targetStopPos - stopPosition : targetStopPos - stopPosition + symbols.Length;
+            int distanceToTravel = rotations * symbols.Length + distanceToStart;
+            spinSpeed = distanceToTravel / time;
+            spinTime = time;
 
             ResetSymbolEffects();
         }

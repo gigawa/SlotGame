@@ -91,7 +91,7 @@ namespace Assets.Scripts
 
         void RollupCreditText ()
         {
-            RollupText rollupText = new RollupText(CreditText, credits, 0.75);
+            RollupText rollupText = new RollupText(CreditText, credits, 0.5);
             StartCoroutine("NumberRollUp", rollupText);
         }
 

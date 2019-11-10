@@ -14,15 +14,21 @@ namespace Assets.Scripts
 
             // Set reel stops for each reel
             // Random number if not seeding game
-            foreach (Reel reel in stateMachine.reels)
+            float spinTime = 1.75f;
+            float increment = 0.5f;
+            for(int i = 0; i < stateMachine.reels.Length; i++)
             {
-                if(!stateMachine.seedGame)
+                if (stateMachine.reels[i].isActiveAndEnabled)
                 {
-                    int newStop = Random.Range(0, reel.maxRng);
-                    reel.SetTargetStopPosition(newStop);
-                }
+                    if (!stateMachine.seedGame)
+                    {
+                        int newStop = Random.Range(0, stateMachine.reels[i].maxRng);
+                        stateMachine.reels[i].SetTargetStopPosition(newStop);
+                    }
 
-                reel.StartSpin();
+                    stateMachine.reels[i].StartSpin(spinTime);
+                    spinTime += increment;
+                }
             }
         }
 
