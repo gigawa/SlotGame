@@ -42,7 +42,7 @@ namespace Assets.Scripts
 
         public float symbolDistance;
 
-        public LogicStateMachine stateMachine;
+        public StateMachine stateMachine;
 
         // Start is called before the first frame update
         void Start()

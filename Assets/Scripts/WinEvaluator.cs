@@ -57,7 +57,7 @@ namespace Assets.Scripts
             }
         };
 
-        public LogicStateMachine stateMachine;
+        public StateMachine stateMachine;
         public Symbol[,] symbolWindow;
         private Reel[] reels;
         public int windowHeight;

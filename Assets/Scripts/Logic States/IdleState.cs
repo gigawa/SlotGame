@@ -9,7 +9,7 @@ namespace Assets.Scripts
 {
     class IdleState : ByTheTale.StateMachine.State
     {
-        public LogicStateMachine stateMachine { get { return (LogicStateMachine)machine; } }
+        public StateMachine stateMachine { get { return (StateMachine)machine; } }
 
         public delegate void PlaceBet();
         public event PlaceBet placeBet;
@@ -25,6 +25,8 @@ namespace Assets.Scripts
 
             stateMachine.inputManager.repeatBet += AttemptBet;
             stateMachine.inputManager.addCredits += AddCredits;
+            stateMachine.inputManager.increaseBet += IncreaseBet;
+            stateMachine.inputManager.decreaseBet += DecreaseBet;
             stateMachine.winEvaluator.StartWinCycle();
 
             stateMachine.RollupCreditText();
@@ -38,6 +40,8 @@ namespace Assets.Scripts
 
             stateMachine.inputManager.repeatBet -= AttemptBet;
             stateMachine.inputManager.addCredits -= AddCredits;
+            stateMachine.inputManager.increaseBet -= IncreaseBet;
+            stateMachine.inputManager.decreaseBet -= DecreaseBet;
             stateMachine.winEvaluator.StopWinCycle();
         }
 
@@ -56,6 +60,22 @@ namespace Assets.Scripts
             if (stateMachine.PlaceBet())
             {
                 CommitBet();
+            }
+        }
+
+        public void IncreaseBet()
+        {
+            if(stateMachine.betLevelIndex < stateMachine.betLevels.Length - 1)
+            {
+                stateMachine.betLevelIndex++;
+            }
+        }
+
+        public void DecreaseBet()
+        {
+            if (stateMachine.betLevelIndex > 0)
+            {
+                stateMachine.betLevelIndex--;
             }
         }
 

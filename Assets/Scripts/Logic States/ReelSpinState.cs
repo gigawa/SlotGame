@@ -4,7 +4,7 @@ namespace Assets.Scripts
 {
     class ReelSpinState : ByTheTale.StateMachine.State
     {
-        public LogicStateMachine stateMachine { get { return (LogicStateMachine)machine; } }
+        public StateMachine stateMachine { get { return (StateMachine)machine; } }
 
         public override void Enter()
         {

@@ -10,7 +10,7 @@ namespace Assets.Scripts
 {
     class HistoryState : ByTheTale.StateMachine.State
     {
-        public LogicStateMachine stateMachine { get { return (LogicStateMachine)machine; } }
+        public StateMachine stateMachine { get { return (StateMachine)machine; } }
 
         public int gameIndex;
 

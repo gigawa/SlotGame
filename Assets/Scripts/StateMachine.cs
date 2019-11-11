@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
-    public class LogicStateMachine : ByTheTale.StateMachine.MachineBehaviour
+    public class StateMachine : ByTheTale.StateMachine.MachineBehaviour
     {
         [System.Serializable]
         public struct HistoryUI
@@ -17,8 +17,22 @@ namespace Assets.Scripts
             public Text win;
         };
 
+        public struct RollupText
+        {
+            public Text textObject;
+            public int target;
+            public double length;
+
+            public RollupText(Text text, int targetInt, double lengthS)
+            {
+                textObject = text;
+                target = targetInt;
+                length = lengthS;
+            }
+        }
+
         public int credits { get; private set; }
-        public int betLevelIndex { get; private set; }
+        public int betLevelIndex { get; set; }
         public int[] betLevels { get; private set; }
         public int minBet { get; private set; }
         public Reel[] reels;
@@ -38,20 +52,6 @@ namespace Assets.Scripts
         public GameCycleData currentCycleData;
         public DataManager dataManager;
         public HistoryUI historyUI;
-
-        public struct RollupText
-        {
-            public Text textObject;
-            public int target;
-            public double length;
-
-            public RollupText(Text text, int targetInt, double lengthS)
-            {
-                textObject = text;
-                target = targetInt;
-                length = lengthS;
-            }
-        }
 
         public override void AddStates()
         {
