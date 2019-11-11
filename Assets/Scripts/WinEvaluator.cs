@@ -44,6 +44,17 @@ namespace Assets.Scripts
             public int [] position;
             public int winAmount = 0;
             public int winLength = 0;
+
+            public Line(Line line)
+            {
+                position = new int[line.position.Length];
+                for(int i = 0; i < line.position.Length; i++)
+                {
+                    position[i] = line.position[i];
+                }
+                winAmount = line.winAmount;
+                winLength = line.winLength;
+            }
         };
 
         public LogicStateMachine stateMachine;
@@ -211,6 +222,15 @@ namespace Assets.Scripts
             }
             playingWinCycle = false;
             shouldPlayCycle = false;
+
+            // turn off win effect on all symbols
+            for (int i = 0; i < windowWidth; i++)
+            {
+                for (int j = 0; j < windowHeight; j++)
+                {
+                    symbolWindow[i, j].winEffect.SetActive(false);
+                }
+            }
         }
 
         /// <summary>

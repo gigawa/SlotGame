@@ -14,7 +14,6 @@ namespace Assets.Scripts
         public delegate void PlaceBet();
         public event PlaceBet placeBet;
 
-        public GameCycleData nextCycle;
         public override void Initialize()
         {
             base.Initialize();
@@ -56,7 +55,6 @@ namespace Assets.Scripts
         {
             if (stateMachine.PlaceBet())
             {
-                nextCycle = new GameCycleData();
                 CommitBet();
             }
         }
@@ -71,8 +69,10 @@ namespace Assets.Scripts
         {
             stateMachine.inputManager.DisableInputs();
 
+            var nextCycle = new GameCycleData();
             nextCycle.betAmount = stateMachine.betLevels[stateMachine.betLevelIndex] * stateMachine.minBet;
             nextCycle.startingCredits = stateMachine.credits;
+            nextCycle.reelStops = new List<int>();
 
             // Set reel stops for each reel
             // Random number if not seeding game  
@@ -91,7 +91,13 @@ namespace Assets.Scripts
             }
 
             int award = stateMachine.winEvaluator.EvaluateWin() * stateMachine.betLevels[stateMachine.betLevelIndex];
-            nextCycle.lines = new List<WinEvaluator.Line>(stateMachine.winEvaluator.lines);
+            
+            nextCycle.lines = new List<WinEvaluator.Line>();
+            foreach(var line in stateMachine.winEvaluator.lines)
+            {
+                nextCycle.lines.Add(new WinEvaluator.Line(line));
+            }
+
             nextCycle.totalWin = award;
             stateMachine.AddCredits(award);
             nextCycle.endingCredits = stateMachine.credits;

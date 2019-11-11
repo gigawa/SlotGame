@@ -27,11 +27,5 @@ namespace Assets.Scripts
         public int betAmount;
         public int startingCredits;
         public int endingCredits;
-
-        public GameCycleData ()
-        {
-            reelStops = new List<int>();
-            lines = new List<WinEvaluator.Line>();
-        }
     }
 }

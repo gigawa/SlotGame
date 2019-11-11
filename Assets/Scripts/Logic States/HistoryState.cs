@@ -67,8 +67,10 @@ namespace Assets.Scripts
         public void UpdateReels()
         {
             Debug.Log("Game Index: " + gameIndex);
+            
             GameCycleData data = stateMachine.dataManager.gameData.gameHistory[gameIndex];
-            //stateMachine.winEvaluator.StopWinCycle();
+            
+            stateMachine.winEvaluator.StopWinCycle();
             for (int i = 0; i < stateMachine.reels.Length; i++)
             {
                 stateMachine.reels[i].SetStop(data.reelStops[i]);

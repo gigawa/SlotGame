@@ -2966,7 +2966,7 @@ MonoBehaviour:
   - {fileID: 1153393592}
   - {fileID: 2031348452}
   winEvaluator: {fileID: 566961576}
-  seedGame: 0
+  seedGame: 1
   inputManager: {fileID: 566961577}
   AwardText: {fileID: 90894532}
   CreditText: {fileID: 1687346514}
