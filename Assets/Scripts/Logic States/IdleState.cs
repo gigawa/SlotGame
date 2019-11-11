@@ -42,6 +42,16 @@ namespace Assets.Scripts
             stateMachine.winEvaluator.StopWinCycle();
         }
 
+        public override void Execute()
+        {
+            base.Execute();
+
+            if (Input.GetKey(KeyCode.H))
+            {
+                stateMachine.ChangeState<HistoryState>();
+            }
+        }
+
         public void AttemptBet()
         {
             if (stateMachine.PlaceBet())

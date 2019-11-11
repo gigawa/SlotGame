@@ -106,6 +106,19 @@ namespace Assets.Scripts
             }
         }
 
+        public void GetSymbolWindow ()
+        {
+            for (int i = 0; i < windowWidth; i++)
+            {
+                int position = reels[i].targetStopPos - 1 > -1 ? reels[i].targetStopPos - 1 : reels[i].symbols.Length - 1;
+                for (int j = 0; j < windowHeight; j++)
+                {
+                    symbolWindow[i, j] = reels[i].symbols[position];
+                    position = position + 1 < reels[i].symbols.Length ? position + 1 : 0;
+                }
+            }
+        }
+
         /// <summary>
         /// Evaluates win amount for symbols in window
         /// </summary>
@@ -122,15 +135,7 @@ namespace Assets.Scripts
             }
 
             // gets all symbols in window now that spin is done
-            for (int i = 0; i < windowWidth; i++)
-            {
-                int position = reels[i].targetStopPos - 1 > -1 ? reels[i].targetStopPos - 1 : reels[i].symbols.Length - 1;
-                for (int j = 0; j < windowHeight; j++)
-                {
-                    symbolWindow[i,j] = reels[i].symbols[position];
-                    position = position + 1 < reels[i].symbols.Length ? position + 1 : 0;
-                }
-            }
+            GetSymbolWindow();
 
             // gets win amount based on possible combos
             int win = 0;
@@ -191,6 +196,13 @@ namespace Assets.Scripts
             shouldPlayCycle = true;
         }
 
+        public void StartWinCycle(List<Line> lines)
+        {
+            this.lines = lines;
+            GetSymbolWindow();
+            shouldPlayCycle = true;
+        }
+
         public void StopWinCycle ()
         {
             if(winCycleInstance != null)
@@ -201,12 +213,49 @@ namespace Assets.Scripts
             shouldPlayCycle = false;
         }
 
+        /// <summary>
+        /// plays win cycle on last evaluated game
+        /// </summary>
+        /// <returns></returns>
         IEnumerator PlayWinCycle()
         {
             //Debug.Log("Play Win Cycle");
             for(int i = 0; i < lines.Count; i++)
             {
                 if(lines[i].winLength > 0)
+                {
+                    for (int j = 0; j < lines[i].winLength; j++)
+                    {
+                        //Debug.Log("y: " + lines[i].position[j]);
+                        symbolWindow[j, lines[i].position[j]].winEffect.SetActive(true);
+                    }
+
+                    yield return new WaitForSeconds(1.5f);
+
+                    for (int j = 0; j < lines[i].winLength; j++)
+                    {
+                        //Debug.Log("y: " + lines[i].position[j]);
+                        symbolWindow[j, lines[i].position[j]].winEffect.SetActive(false);
+                    }
+                }
+            }
+
+            yield return new WaitForSeconds(1.5f);
+
+            playingWinCycle = false;
+        }
+
+        /// <summary>
+        /// Plays win cycle on provided lines
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <returns></returns>
+        IEnumerator PlayWinCycle(List<Line> lines)
+        {
+            //Debug.Log("Play Win Cycle");
+            for (int i = 0; i < lines.Count; i++)
+            {
+                if (lines[i].winLength > 0)
                 {
                     for (int j = 0; j < lines[i].winLength; j++)
                     {

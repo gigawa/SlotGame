@@ -19,6 +19,10 @@ namespace Assets.Scripts
 
         public GameData gameData;
 
+        /// <summary>
+        /// Gets game cycle data for last game played
+        /// </summary>
+        /// <returns></returns>
         public GameCycleData GetLastGame ()
         {
             return gameData.gameHistory[gameData.gameHistory.Count - 1];
@@ -26,6 +30,7 @@ namespace Assets.Scripts
 
         public void CommitCycle (GameCycleData cycleData)
         {
+            // Only Keep 10 games in history
             if(gameData.gameHistory.Count > 10)
             {
                 gameData.gameHistory.RemoveAt(0);
@@ -33,6 +38,9 @@ namespace Assets.Scripts
             gameData.gameHistory.Add(cycleData);
         }
 
+        /// <summary>
+        /// serialize and save game data to persistent storage
+        /// </summary>
         public void SaveGameData ()
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -41,7 +49,10 @@ namespace Assets.Scripts
             file.Close();
         }
 
-        public void LoadGameData()
+        /// <summary>
+        /// Loads Game data from persistent storage
+        /// </summary>
+        public GameData LoadGameData()
         {
             if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
             {
@@ -51,8 +62,10 @@ namespace Assets.Scripts
                 file.Close();
 
                 // TODO: Run some checks to make sure it's valid
-                gameData = save;
+                return save;
             }
+
+            return null;
         }
     }
 }

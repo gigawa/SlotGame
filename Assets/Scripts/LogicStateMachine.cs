@@ -53,6 +53,8 @@ namespace Assets.Scripts
             AddState<AwardState>();
             awardState = GetState<AwardState>();
 
+            AddState<HistoryState>();
+
             SetInitialState<IdleState>();
         }
 

@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\InputMangaer.cs" />
      <Compile Include="Assets\Scripts\Logic States\AwardState.cs" />
      <Compile Include="Assets\Scripts\Logic States\BaseGameController.cs" />
+     <Compile Include="Assets\Scripts\Logic States\HistoryState.cs" />
      <Compile Include="Assets\Scripts\Logic States\IdleState.cs" />
      <Compile Include="Assets\Scripts\Logic States\ReelSpinState.cs" />
      <Compile Include="Assets\Scripts\LogicStateMachine.cs" />
