@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -21,6 +22,7 @@ namespace Assets.Scripts
             stateMachine.winEvaluator.StopWinCycle();
             gameIndex = stateMachine.dataManager.gameData.gameHistory.Count - 1;
             UpdateReels();
+            stateMachine.historyUI.canvas.SetActive(true);
         }
 
         public override void Exit()
@@ -29,7 +31,9 @@ namespace Assets.Scripts
 
             gameIndex = stateMachine.dataManager.gameData.gameHistory.Count - 1;
             UpdateReels();
+            stateMachine.winEvaluator.StopWinCycle();
             stateMachine.inputManager.EnableInputs();
+            stateMachine.historyUI.canvas.SetActive(false);
         }
 
         public override void Execute()
@@ -65,12 +69,25 @@ namespace Assets.Scripts
             Debug.Log("Game Index: " + gameIndex);
             GameCycleData data = stateMachine.dataManager.gameData.gameHistory[gameIndex];
             //stateMachine.winEvaluator.StopWinCycle();
-            //stateMachine.winEvaluator.StartWinCycle(data.lines);
             for (int i = 0; i < stateMachine.reels.Length; i++)
             {
                 stateMachine.reels[i].SetStop(data.reelStops[i]);
-                stateMachine.winEvaluator.StartWinCycle(data.lines);
             }
+            stateMachine.winEvaluator.StartWinCycle(data.lines);
+
+            UpdateUI(data);
+        }
+
+        public void UpdateUI(GameCycleData data)
+        {
+            stateMachine.BetText.text = data.betAmount.ToString();
+            stateMachine.CreditText.text = data.endingCredits.ToString();
+            stateMachine.AwardText.text = data.totalWin.ToString();
+
+            stateMachine.historyUI.bet.text = data.betAmount.ToString();
+            stateMachine.historyUI.win.text = data.totalWin.ToString();
+            stateMachine.historyUI.startingText.text = data.startingCredits.ToString();
+            stateMachine.historyUI.endingText.text = data.endingCredits.ToString();
         }
     }
 }

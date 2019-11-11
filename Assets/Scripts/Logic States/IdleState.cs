@@ -91,7 +91,7 @@ namespace Assets.Scripts
             }
 
             int award = stateMachine.winEvaluator.EvaluateWin() * stateMachine.betLevels[stateMachine.betLevelIndex];
-            nextCycle.lines = stateMachine.winEvaluator.lines;
+            nextCycle.lines = new List<WinEvaluator.Line>(stateMachine.winEvaluator.lines);
             nextCycle.totalWin = award;
             stateMachine.AddCredits(award);
             nextCycle.endingCredits = stateMachine.credits;

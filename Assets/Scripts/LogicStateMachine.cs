@@ -7,6 +7,16 @@ namespace Assets.Scripts
 {
     public class LogicStateMachine : ByTheTale.StateMachine.MachineBehaviour
     {
+        [System.Serializable]
+        public struct HistoryUI
+        {
+            public GameObject canvas;
+            public Text startingText;
+            public Text endingText;
+            public Text bet;
+            public Text win;
+        };
+
         public int credits { get; private set; }
         public int betLevelIndex { get; private set; }
         public int[] betLevels { get; private set; }
@@ -27,6 +37,7 @@ namespace Assets.Scripts
 
         public GameCycleData currentCycleData;
         public DataManager dataManager;
+        public HistoryUI historyUI;
 
         public struct RollupText
         {

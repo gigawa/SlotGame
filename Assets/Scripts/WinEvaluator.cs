@@ -106,7 +106,7 @@ namespace Assets.Scripts
             }
         }
 
-        public void GetSymbolWindow ()
+        public void UpdateSymbolWindow ()
         {
             for (int i = 0; i < windowWidth; i++)
             {
@@ -135,7 +135,7 @@ namespace Assets.Scripts
             }
 
             // gets all symbols in window now that spin is done
-            GetSymbolWindow();
+            UpdateSymbolWindow();
 
             // gets win amount based on possible combos
             int win = 0;
@@ -196,10 +196,10 @@ namespace Assets.Scripts
             shouldPlayCycle = true;
         }
 
-        public void StartWinCycle(List<Line> lines)
+        public void StartWinCycle(List<Line> newlines)
         {
-            this.lines = lines;
-            GetSymbolWindow();
+            lines = new List<Line>(newlines);
+            UpdateSymbolWindow();
             shouldPlayCycle = true;
         }
 

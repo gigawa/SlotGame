@@ -28,7 +28,7 @@ namespace Assets.Scripts
         [SerializeField]
         private float spaceBetweenSymbols;
 
-        public int targetStopPos { get; private set; }
+        public int targetStopPos;
 
         public int rotations;
 
@@ -175,6 +175,7 @@ namespace Assets.Scripts
         public void SetStop(int stop)
         {
             stopPosition = stop;
+            targetStopPos = stop;
 
             // get position of bottom symbol
             int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Length - 1) - (1 - stopPosition));
