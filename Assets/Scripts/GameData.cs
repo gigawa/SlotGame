@@ -21,7 +21,7 @@ namespace Assets.Scripts
     public class GameCycleData
     {
         public List<int> reelStops;
-        public List<WinEvaluator.Line> lines;
+        public Award award;
 
         public int totalWin;
         public int betAmount;

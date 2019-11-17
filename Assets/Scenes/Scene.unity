@@ -2973,7 +2973,11 @@ MonoBehaviour:
   BetText: {fileID: 969552502}
   currentCycleData:
     reelStops: 
-    lines: []
+    award:
+      lines: []
+      ways: []
+      scatters: []
+      totalWin: 0
     totalWin: 0
     betAmount: 0
     startingCredits: 0
@@ -3014,69 +3018,81 @@ MonoBehaviour:
   stateMachine: {fileID: 566961574}
   windowHeight: 3
   windowWidth: 5
-  winCombos: []
-  lines:
-  - position: 0000000000000000000000000000000000000000
-    winAmount: 0
-    winLength: 0
-  - position: 0200000002000000010000000200000002000000
-    winAmount: 0
-    winLength: 0
-  - position: 0200000001000000000000000100000002000000
-    winAmount: 0
-    winLength: 0
-  - position: 0000000001000000010000000100000000000000
-    winAmount: 0
-    winLength: 0
-  - position: 0100000001000000010000000100000001000000
-    winAmount: 0
-    winLength: 0
-  - position: 0200000001000000010000000100000002000000
-    winAmount: 0
-    winLength: 0
-  - position: 0000000001000000020000000100000000000000
-    winAmount: 0
-    winLength: 0
-  - position: 0000000000000000010000000000000000000000
-    winAmount: 0
-    winLength: 0
-  - position: 0200000002000000020000000200000002000000
-    winAmount: 0
-    winLength: 0
-  shouldPlayCycle: 0
-  comboTemplates:
+  winCombos:
   - symbol: icon_1
     wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
+    comboType: 0
   - symbol: icon_2
     wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
+    comboType: 0
   - symbol: icon_3
-    wins: 190000003200000064000000
+    wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
+    comboType: 0
   - symbol: icon_4
-    wins: 190000003200000064000000
+    wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
+    comboType: 0
   - symbol: icon_5
-    wins: 320000006400000096000000
+    wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
+    comboType: 0
   - symbol: icon_6
-    wins: 320000006400000096000000
+    wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
+    comboType: 0
   - symbol: icon_7
-    wins: 32000000960000002c010000
+    wins: 6400000096000000c8000000
     minLength: 3
     maxLength: 5
+    comboType: 2
   - symbol: icon_8
-    wins: 32000000960000002c010000
+    wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
+    comboType: 0
+  lines:
+  - winAmount: 0
+    winLength: 0
+    position: 0000000000000000000000000000000000000000
+  - winAmount: 0
+    winLength: 0
+    position: 0200000002000000010000000200000002000000
+  - winAmount: 0
+    winLength: 0
+    position: 0200000001000000000000000100000002000000
+  - winAmount: 0
+    winLength: 0
+    position: 0000000001000000010000000100000000000000
+  - winAmount: 0
+    winLength: 0
+    position: 0100000001000000010000000100000001000000
+  - winAmount: 0
+    winLength: 0
+    position: 0200000001000000010000000100000002000000
+  - winAmount: 0
+    winLength: 0
+    position: 0000000001000000020000000100000000000000
+  - winAmount: 0
+    winLength: 0
+    position: 0000000000000000010000000000000000000000
+  - winAmount: 0
+    winLength: 0
+    position: 0200000002000000020000000200000002000000
+  currAward:
+    lines: []
+    ways: []
+    scatters: []
+    totalWin: 0
+  shouldPlayCycle: 0
 --- !u!114 &566961577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5220,8 +5236,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

@@ -75,7 +75,7 @@ namespace Assets.Scripts
             {
                 stateMachine.reels[i].SetStop(data.reelStops[i]);
             }
-            stateMachine.winEvaluator.StartWinCycle(data.lines);
+            stateMachine.winEvaluator.StartWinCycle(data.award);
 
             UpdateUI(data);
         }

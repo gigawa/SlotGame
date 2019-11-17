@@ -110,16 +110,13 @@ namespace Assets.Scripts
                 }
             }
 
-            int award = stateMachine.winEvaluator.EvaluateWin() * stateMachine.betLevels[stateMachine.betLevelIndex];
-            
-            nextCycle.lines = new List<WinEvaluator.Line>();
-            foreach(var line in stateMachine.winEvaluator.lines)
-            {
-                nextCycle.lines.Add(new WinEvaluator.Line(line));
-            }
+            Award award = stateMachine.winEvaluator.EvaluateWin();
+            int totalWin = award.totalWin * stateMachine.betLevels[stateMachine.betLevelIndex];
 
-            nextCycle.totalWin = award;
-            stateMachine.AddCredits(award);
+            nextCycle.award = award;
+
+            nextCycle.totalWin = totalWin;
+            stateMachine.AddCredits(totalWin);
             nextCycle.endingCredits = stateMachine.credits;
 
             stateMachine.dataManager.CommitCycle(nextCycle);

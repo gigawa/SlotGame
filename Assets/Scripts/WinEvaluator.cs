@@ -8,54 +8,42 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    public enum ComboType { line, way, scatter };
+
+    /// <summary>
+    /// Win Combos - the symbols used and the win amount
+    /// </summary>
+    [Serializable]
+    public class WinCombo
+    {
+        public string symbol;
+        public int[] wins;
+        public int minLength;
+        public int maxLength;
+        public ComboType comboType;
+    };
+
+    [Serializable]
+    public class Award
+    {
+        public List<Line> lines;
+        public List<Way> ways;
+        public List<Scatter> scatters;
+
+        public int totalWin;
+
+        public Award()
+        {
+            lines = new List<Line>();
+            ways = new List<Way>();
+            scatters = new List<Scatter>();
+            totalWin = 0;
+        }
+    }
+
     public class WinEvaluator : MonoBehaviour
     {
-        /// <summary>
-        /// Win Combos - the symbols used and the win amount
-        /// </summary>
-        [Serializable]
-        public class WinCombo
-        {
-            public List<string> symbols;
-            public int win;
 
-            public WinCombo()
-            {
-                symbols = new List<string>();
-            }
-        };
-
-        [Serializable]
-        public class SimpleComboTemplate
-        {
-            public string symbol;
-            public int[] wins;
-            public int minLength;
-            public int maxLength;
-        }
-
-        /// <summary>
-        /// Line - position is y position with index being the reel
-        /// Also holds win amount when evaluated
-        /// </summary>
-        [Serializable]
-        public class Line
-        {
-            public int [] position;
-            public int winAmount = 0;
-            public int winLength = 0;
-
-            public Line(Line line)
-            {
-                position = new int[line.position.Length];
-                for(int i = 0; i < line.position.Length; i++)
-                {
-                    position[i] = line.position[i];
-                }
-                winAmount = line.winAmount;
-                winLength = line.winLength;
-            }
-        };
 
         public StateMachine stateMachine;
         public Symbol[,] symbolWindow;
@@ -66,10 +54,10 @@ namespace Assets.Scripts
         public List<WinCombo> winCombos;
         public List<Line> lines;
 
+        public Award currAward;
+
         private bool playingWinCycle = false;
         public bool shouldPlayCycle = false;
-
-        public SimpleComboTemplate[] comboTemplates;
 
         public Coroutine winCycleInstance;
 
@@ -77,7 +65,6 @@ namespace Assets.Scripts
         {
             reels = stateMachine.reels;
             symbolWindow = new Symbol[windowWidth, windowHeight];
-            SetupSimpleCombos();
         }
 
         public void FixedUpdate()
@@ -88,31 +75,6 @@ namespace Assets.Scripts
                 {
                     playingWinCycle = true;
                     winCycleInstance = StartCoroutine(PlayWinCycle());
-                }
-            }
-        }
-
-        /// <summary>
-        /// Setup basic combos - 3, 4, 5 in a row type combos
-        /// </summary>
-        public void SetupSimpleCombos()
-        {
-            if (winCombos == null)
-            {
-                winCombos = new List<WinCombo>();
-            }
-
-            foreach(var combo in comboTemplates)
-            {
-                for(int i = 0; i <= combo.maxLength - combo.minLength; i++)
-                {
-                    WinCombo win = new WinCombo();
-                    for(int j = 0; j < combo.minLength + i; j++)
-                    {
-                        win.symbols.Add(combo.symbol);
-                    }
-                    win.win = combo.wins[i];
-                    winCombos.Add(win);
                 }
             }
         }
@@ -134,7 +96,7 @@ namespace Assets.Scripts
         /// Evaluates win amount for symbols in window
         /// </summary>
         /// <returns></returns>
-        public int EvaluateWin()
+        public Award EvaluateWin()
         {
             Debug.Log("Evaluate Win");
 
@@ -149,67 +111,135 @@ namespace Assets.Scripts
             UpdateSymbolWindow();
 
             // gets win amount based on possible combos
-            int win = 0;
-            foreach(WinCombo combo in winCombos)
+            Award award = new Award();
+            foreach (WinCombo combo in winCombos)
             {
-                CheckCombo(combo);
+                switch(combo.comboType)
+                {
+                    case ComboType.line:
+                        var line = CheckLineCombo(combo);
+                        
+                        if(line.Count > 0)
+                        {
+                            foreach(var l in line)
+                            {
+                                award.totalWin += l.winAmount;
+                            }
+
+                            award.lines.AddRange(line);
+                        }
+
+                        break;
+
+                    case ComboType.scatter:
+                        var scatter = CheckScatterCombo(combo);
+
+                        if (scatter != null)
+                        {
+                            award.totalWin += scatter.winAmount;
+                            award.scatters.Add(scatter);
+                        }
+
+                        break;
+
+                    default:
+                        Debug.Log("Unknown Combo Type");
+                        break;
+                }
             }
 
-            // gets all line wins
-            for(int i = 0; i < lines.Count; i++)
-            {
-                Debug.Log("Line " + i + " Win: " + lines[i].winAmount);
-                win += lines[i].winAmount;
-            }
+            currAward = award;
 
-            return win;
+            return award;
         }
 
         /// <summary>
-        /// Checks combo for total win and saves win amount and length
+        /// Checks combo for total line win and saves win amount and length
         /// </summary>
         /// <param name="combo"></param>
         /// <returns></returns>
-        public void CheckCombo(WinCombo combo)
+        public List<Line> CheckLineCombo (WinCombo combo)
         {
-            int comboWin = 0;
-
+            List<Line> lineWins = new List<Line>();
             // Iterate through all lines looking for combos
-            for(int i = 0; i < lines.Count; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
                 // Check line only if bigger win possible
-                if (lines[i].winAmount < combo.win)
+                if (lines[i].winAmount < combo.wins[combo.wins.Length - 1])
                 {
-                    bool win = true;
-                    for (int j = 0; j < combo.symbols.Count; j++)
+                    int length = 0;
+                    for (int j = 0; j < windowWidth; j++)
                     {
                         int position = lines[i].position[j];
-                        if (symbolWindow[j, position].gameObject.name != combo.symbols[j])
+                        if (symbolWindow[j, position].gameObject.name == combo.symbol)
                         {
-                            win = false;
+                            length++;
+                        }else
+                        {
+                            break;
                         }
                     }
 
                     // set combo win and win for line
-                    if (win)
+                    if (length >= combo.minLength)
                     {
-                        comboWin += combo.win;
-                        lines[i].winAmount = combo.win;
-                        lines[i].winLength = combo.symbols.Count;
-                        //Debug.Log("Line " + i + " Combo Win: " + combo.win);
+                        lines[i].winAmount = combo.wins[length - combo.minLength];
+                        lines[i].winLength = length;
+                        lineWins.Add(new Line(lines[i]));
+                        Debug.Log("Line " + i + " Combo Win: " + combo.symbol);
                     }
                 }
             }
+
+            return lineWins;
+        }
+
+        /// <summary>
+        /// Checks reels for combo as scatter pattern
+        /// </summary>
+        /// <param name="combo"></param>
+        /// <returns></returns>
+        public Scatter CheckScatterCombo (WinCombo combo)
+        {
+            int count = 0;
+            Scatter scatter = new Scatter();
+            for (int i = 0; i < windowWidth && count < combo.maxLength; i++)
+            {
+                for(int j = 0; j < windowHeight; j++)
+                {
+                    if (symbolWindow[i, j].gameObject.name == combo.symbol)
+                    {
+                        count++;
+                        var position = new Scatter.Position
+                        {
+                            x = i,
+                            y = j
+                        };
+                        scatter.positions.Add(position);
+                    }
+                }
+            }
+
+            if(count >= combo.minLength)
+            {
+                scatter.winAmount = combo.wins[count - combo.minLength];
+                scatter.winLength = count;
+
+                return scatter;
+            }
+
+            return null;
         }
 
         public void StartWinCycle ()
         {
-            shouldPlayCycle = true;
+            if(currAward != null)
+                shouldPlayCycle = true;
         }
 
-        public void StartWinCycle(List<Line> newlines)
+        public void StartWinCycle(Award award)
         {
-            lines = new List<Line>(newlines);
+            currAward = award;
             UpdateSymbolWindow();
             shouldPlayCycle = true;
         }
@@ -239,58 +269,36 @@ namespace Assets.Scripts
         /// <returns></returns>
         IEnumerator PlayWinCycle()
         {
-            //Debug.Log("Play Win Cycle");
-            for(int i = 0; i < lines.Count; i++)
+            // Cycle through line wins
+            for (int i = 0; i < currAward.lines.Count; i++)
             {
-                if(lines[i].winLength > 0)
+                for (int j = 0; j < currAward.lines[i].winLength; j++)
                 {
-                    for (int j = 0; j < lines[i].winLength; j++)
-                    {
-                        //Debug.Log("y: " + lines[i].position[j]);
-                        symbolWindow[j, lines[i].position[j]].winEffect.SetActive(true);
-                    }
+                    //Debug.Log("y: " + lines[i].position[j]);
+                    symbolWindow[j, currAward.lines[i].position[j]].winEffect.SetActive(true);
+                }
 
-                    yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(1.5f);
 
-                    for (int j = 0; j < lines[i].winLength; j++)
-                    {
-                        //Debug.Log("y: " + lines[i].position[j]);
-                        symbolWindow[j, lines[i].position[j]].winEffect.SetActive(false);
-                    }
+                for (int j = 0; j < currAward.lines[i].winLength; j++)
+                {
+                    //Debug.Log("y: " + lines[i].position[j]);
+                    symbolWindow[j, currAward.lines[i].position[j]].winEffect.SetActive(false);
                 }
             }
 
-            yield return new WaitForSeconds(1.5f);
-
-            playingWinCycle = false;
-        }
-
-        /// <summary>
-        /// Plays win cycle on provided lines
-        /// </summary>
-        /// <param name="lines"></param>
-        /// <returns></returns>
-        IEnumerator PlayWinCycle(List<Line> lines)
-        {
-            //Debug.Log("Play Win Cycle");
-            for (int i = 0; i < lines.Count; i++)
+            // Cycle through scatter wins
+            for (int i = 0; i < currAward.scatters.Count; i++)
             {
-                if (lines[i].winLength > 0)
+                foreach (var scatter in currAward.scatters)
                 {
-                    for (int j = 0; j < lines[i].winLength; j++)
+                    foreach (var position in scatter.positions)
                     {
-                        //Debug.Log("y: " + lines[i].position[j]);
-                        symbolWindow[j, lines[i].position[j]].winEffect.SetActive(true);
-                    }
-
-                    yield return new WaitForSeconds(1.5f);
-
-                    for (int j = 0; j < lines[i].winLength; j++)
-                    {
-                        //Debug.Log("y: " + lines[i].position[j]);
-                        symbolWindow[j, lines[i].position[j]].winEffect.SetActive(false);
+                        symbolWindow[position.x, position.y].winEffect.SetActive(true);
                     }
                 }
+
+                yield return new WaitForSeconds(1.5f);
             }
 
             yield return new WaitForSeconds(1.5f);
