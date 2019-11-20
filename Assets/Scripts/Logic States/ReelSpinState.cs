@@ -10,6 +10,13 @@ namespace Assets.Scripts
         {
             base.Enter();
 
+            float spinTime = 1.75f;
+            float increment = 0.25f;
+            for (int i = 0; i < stateMachine.reels.Length; i++)
+            {
+                stateMachine.reels[i].StartSpin(spinTime);
+                spinTime += increment;
+            }
         }
 
         public override void PostExecute()

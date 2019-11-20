@@ -44,6 +44,12 @@ namespace Assets.Scripts
 
         public StateMachine stateMachine;
 
+        public delegate void StartReels(Reel reel);
+        public StartReels startReels;
+
+        public delegate void StopReels(Reel reel);
+        public StopReels stopReels;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -116,6 +122,8 @@ namespace Assets.Scripts
             spinTime = time;
 
             ResetSymbolEffects();
+
+            startReels(this);
         }
 
         public void ResetSymbolEffects()
@@ -170,6 +178,8 @@ namespace Assets.Scripts
 
             spinning = false;
             currSpinTime = 0f;
+
+            stopReels(this);
         }
 
         public void SetStop(int stop)

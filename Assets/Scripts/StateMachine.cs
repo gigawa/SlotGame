@@ -41,9 +41,11 @@ namespace Assets.Scripts
 
         private IdleState idleState;
         private ReelSpinState reelSpinState;
-        private AwardState awardState;
+        public AwardState awardState;
 
         public InputMangaer inputManager;
+        public SoundController soundController;
+        public BaseGamePresentationController presentationController;
 
         public Text AwardText;
         public Text CreditText;
@@ -105,6 +107,7 @@ namespace Assets.Scripts
 
         public void UpdateAwardText(int award)
         {
+            AwardText.text = "0";
             RollupText rollupText = new RollupText(AwardText, award, 2);
             StartCoroutine("NumberRollUp", rollupText);
         }
@@ -146,17 +149,11 @@ namespace Assets.Scripts
                 credits -= betLevels[betLevelIndex] * minBet;
                 SetCreditText();
                 UpdateAwardText(0);
-                SpinReels();
 
                 return true;
             }
 
             return false;
-        }
-
-        void SpinReels()
-        {
-            ChangeState<ReelSpinState>();
         }
 
         public void Execute ()

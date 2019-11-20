@@ -122,13 +122,7 @@ namespace Assets.Scripts
             stateMachine.dataManager.CommitCycle(nextCycle);
             stateMachine.currentCycleData = nextCycle;
 
-            float spinTime = 1.75f;
-            float increment = 0.5f;
-            for (int i = 0; i < stateMachine.reels.Length; i++)
-            {
-                stateMachine.reels[i].StartSpin(spinTime);
-                spinTime += increment;
-            }
+            stateMachine.ChangeState<ReelSpinState>();
         }
     }
 }

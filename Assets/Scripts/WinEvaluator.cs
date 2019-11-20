@@ -299,6 +299,14 @@ namespace Assets.Scripts
                 }
 
                 yield return new WaitForSeconds(1.5f);
+
+                foreach (var scatter in currAward.scatters)
+                {
+                    foreach (var position in scatter.positions)
+                    {
+                        symbolWindow[position.x, position.y].winEffect.SetActive(false);
+                    }
+                }
             }
 
             yield return new WaitForSeconds(1.5f);
