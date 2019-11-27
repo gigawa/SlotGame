@@ -21,6 +21,7 @@ namespace Assets.Scripts
         public int minLength;
         public int maxLength;
         public ComboType comboType;
+        public bool bonus;
     };
 
     [Serializable]
@@ -30,20 +31,19 @@ namespace Assets.Scripts
         public List<Way> ways;
         public List<Scatter> scatters;
 
-        public int totalWin;
+        public bool bonusTriggered;
 
         public Award()
         {
             lines = new List<Line>();
             ways = new List<Way>();
             scatters = new List<Scatter>();
-            totalWin = 0;
+            bonusTriggered = false;
         }
     }
 
     public class WinEvaluator : MonoBehaviour
     {
-
 
         public StateMachine stateMachine;
         public Symbol[,] symbolWindow;
@@ -123,7 +123,8 @@ namespace Assets.Scripts
                         {
                             foreach(var l in line)
                             {
-                                award.totalWin += l.winAmount;
+                                l.bonusTriggered = combo.bonus ? true : false;
+                                award.bonusTriggered |= l.bonusTriggered;
                             }
 
                             award.lines.AddRange(line);
@@ -136,7 +137,7 @@ namespace Assets.Scripts
 
                         if (scatter != null)
                         {
-                            award.totalWin += scatter.winAmount;
+                            award.bonusTriggered |= combo.bonus ? true : false;
                             award.scatters.Add(scatter);
                         }
 
@@ -258,7 +259,7 @@ namespace Assets.Scripts
             {
                 for (int j = 0; j < windowHeight; j++)
                 {
-                    symbolWindow[i, j].winEffect.SetActive(false);
+                    symbolWindow[i, j].StopWin();
                 }
             }
         }
@@ -275,7 +276,7 @@ namespace Assets.Scripts
                 for (int j = 0; j < currAward.lines[i].winLength; j++)
                 {
                     //Debug.Log("y: " + lines[i].position[j]);
-                    symbolWindow[j, currAward.lines[i].position[j]].winEffect.SetActive(true);
+                    symbolWindow[j, currAward.lines[i].position[j]].PlayWin();
                 }
 
                 yield return new WaitForSeconds(1.5f);
@@ -283,7 +284,7 @@ namespace Assets.Scripts
                 for (int j = 0; j < currAward.lines[i].winLength; j++)
                 {
                     //Debug.Log("y: " + lines[i].position[j]);
-                    symbolWindow[j, currAward.lines[i].position[j]].winEffect.SetActive(false);
+                    symbolWindow[j, currAward.lines[i].position[j]].StopWin();
                 }
             }
 
@@ -294,7 +295,7 @@ namespace Assets.Scripts
                 {
                     foreach (var position in scatter.positions)
                     {
-                        symbolWindow[position.x, position.y].winEffect.SetActive(true);
+                        symbolWindow[position.x, position.y].PlayWin();
                     }
                 }
 
@@ -304,7 +305,7 @@ namespace Assets.Scripts
                 {
                     foreach (var position in scatter.positions)
                     {
-                        symbolWindow[position.x, position.y].winEffect.SetActive(false);
+                        symbolWindow[position.x, position.y].StopWin();
                     }
                 }
             }

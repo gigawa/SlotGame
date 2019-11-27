@@ -5,13 +5,6 @@ using UnityEngine;
 namespace Assets.Scripts
 {
     [System.Serializable]
-    public class Symbol
-    {
-        public GameObject gameObject;
-        public GameObject winEffect;
-        public int minRng;
-        public int maxRng;
-    }
 
     public class Reel : MonoBehaviour
     {
@@ -53,6 +46,7 @@ namespace Assets.Scripts
         // Start is called before the first frame update
         void Start()
         {
+            symbols = GetComponentsInChildren<Symbol>();
             maxRng = 0;
             foreach(Symbol symbol in symbols)
             {
@@ -60,8 +54,6 @@ namespace Assets.Scripts
                 {
                     maxRng = symbol.maxRng;
                 }
-
-                symbol.winEffect = symbol.gameObject.transform.Find("WinEffect").gameObject;
             }
         }
 
@@ -130,7 +122,7 @@ namespace Assets.Scripts
         {
             foreach (Symbol symbol in symbols)
             {
-                symbol.winEffect.SetActive(false);
+                symbol.StopWin();
             }
         }
 

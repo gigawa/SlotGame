@@ -73,6 +73,7 @@
      <Compile Include="Assets\Scripts\Reel.cs" />
      <Compile Include="Assets\Scripts\SoundController.cs" />
      <Compile Include="Assets\Scripts\StateMachine.cs" />
+     <Compile Include="Assets\Scripts\Symbol.cs" />
      <Compile Include="Assets\Scripts\WinEvaluator.cs" />
      <None Include="Assets\ByTheTale\StateMachine\README.txt" />
  <Reference Include="Unity.Timeline.Editor">
@@ -104,6 +105,9 @@
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Sprite.Editor">
+ <HintPath>C:/Users/Grant/Desktop/Unity/SlotGame/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0a8/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

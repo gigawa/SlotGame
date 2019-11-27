@@ -13,6 +13,7 @@ namespace Assets.Scripts
     {
         public int winAmount = 0;
         public int winLength = 0;
+        public bool bonusTriggered;
     }
 
     /// <summary>

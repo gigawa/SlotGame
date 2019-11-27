@@ -111,7 +111,31 @@ namespace Assets.Scripts
             }
 
             Award award = stateMachine.winEvaluator.EvaluateWin();
-            int totalWin = award.totalWin * stateMachine.betLevels[stateMachine.betLevelIndex];
+            
+            int totalWin = 0;
+            foreach(var combo in award.lines)
+            {
+                if (!combo.bonusTriggered)
+                {
+                    totalWin += combo.winAmount;
+                }
+            }
+            foreach (var combo in award.ways)
+            {
+                if (!combo.bonusTriggered)
+                {
+                    totalWin += combo.winAmount;
+                }
+            }
+            foreach (var combo in award.scatters)
+            {
+                if (!combo.bonusTriggered)
+                {
+                    totalWin += combo.winAmount;
+                }
+            }
+
+            totalWin *= stateMachine.betLevels[stateMachine.betLevelIndex];
 
             nextCycle.award = award;
 
@@ -122,7 +146,7 @@ namespace Assets.Scripts
             stateMachine.dataManager.CommitCycle(nextCycle);
             stateMachine.currentCycleData = nextCycle;
 
-            stateMachine.ChangeState<ReelSpinState>();
+            stateMachine.ChangeState<ReelSpinState>(); 
         }
     }
 }
