@@ -61,10 +61,14 @@ namespace Assets.Scripts
 
         public Coroutine winCycleInstance;
 
+        private GameObject[,] winIndicators;
+        public GameObject winIndicatorPrefab;
+
         public void Start()
         {
             reels = stateMachine.reels;
             symbolWindow = new Symbol[windowWidth, windowHeight];
+            SetupWinIndicators();
         }
 
         public void FixedUpdate()
@@ -75,6 +79,19 @@ namespace Assets.Scripts
                 {
                     playingWinCycle = true;
                     winCycleInstance = StartCoroutine(PlayWinCycle());
+                }
+            }
+        }
+
+        public void SetupWinIndicators()
+        {
+            winIndicators = new GameObject[windowWidth, windowHeight];
+            for(int i = 0; i < windowWidth; i++)
+            {
+                for(int j = 0; j < windowHeight; j++)
+                {
+                    winIndicators[i, j] = Instantiate(winIndicatorPrefab, stateMachine.reels[i].symbols[j + 1].transform.position, transform.rotation);
+                    winIndicators[i, j].SetActive(false);
                 }
             }
         }
@@ -260,6 +277,7 @@ namespace Assets.Scripts
                 for (int j = 0; j < windowHeight; j++)
                 {
                     symbolWindow[i, j].StopWin();
+                    winIndicators[i, j].SetActive(false);
                 }
             }
         }
@@ -276,7 +294,9 @@ namespace Assets.Scripts
                 for (int j = 0; j < currAward.lines[i].winLength; j++)
                 {
                     //Debug.Log("y: " + lines[i].position[j]);
-                    symbolWindow[j, currAward.lines[i].position[j]].PlayWin();
+                    int k = currAward.lines[i].position[j];
+                    symbolWindow[j, k].PlayWin();
+                    winIndicators[j, k].SetActive(true);
                 }
 
                 yield return new WaitForSeconds(1.5f);
@@ -284,7 +304,9 @@ namespace Assets.Scripts
                 for (int j = 0; j < currAward.lines[i].winLength; j++)
                 {
                     //Debug.Log("y: " + lines[i].position[j]);
-                    symbolWindow[j, currAward.lines[i].position[j]].StopWin();
+                    int k = currAward.lines[i].position[j];
+                    symbolWindow[j, k].StopWin();
+                    winIndicators[j, k].SetActive(false);
                 }
             }
 
@@ -296,6 +318,7 @@ namespace Assets.Scripts
                     foreach (var position in scatter.positions)
                     {
                         symbolWindow[position.x, position.y].PlayWin();
+                        winIndicators[position.x, position.y].SetActive(true);
                     }
                 }
 
@@ -306,6 +329,7 @@ namespace Assets.Scripts
                     foreach (var position in scatter.positions)
                     {
                         symbolWindow[position.x, position.y].StopWin();
+                        winIndicators[position.x, position.y].SetActive(false);
                     }
                 }
             }
