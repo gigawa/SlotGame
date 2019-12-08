@@ -88,9 +88,9 @@ namespace Assets.Scripts
             winIndicators = new GameObject[windowWidth, windowHeight];
             for(int i = 0; i < windowWidth; i++)
             {
-                for(int j = 0; j < windowHeight; j++)
+                for (int j = 0; j < windowHeight; j++)
                 {
-                    winIndicators[i, j] = Instantiate(winIndicatorPrefab, stateMachine.reels[i].symbols[j + 1].transform.position, transform.rotation);
+                    winIndicators[i, j] = Instantiate(winIndicatorPrefab, stateMachine.reels[i].symbols[j].transform.position, transform.rotation);
                     winIndicators[i, j].SetActive(false);
                 }
             }

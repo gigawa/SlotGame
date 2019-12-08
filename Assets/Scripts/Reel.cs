@@ -115,6 +115,8 @@ namespace Assets.Scripts
 
             ResetSymbolEffects();
 
+            rawPosition = stopPosition;
+
             startReels(this);
         }
 
@@ -131,16 +133,25 @@ namespace Assets.Scripts
         /// </summary>
         void SpinReel()
         {
-            for(int i = 0; i < symbols.Length; i++)
+            int position = stopPosition - 1 > -1 ? stopPosition - 1 : symbols.Length - 1;
+            Debug.Log("Start Position: " + position);
+            for (int i = 0; i < 4; i++)
             {
-                symbols[i].gameObject.transform.localPosition = new Vector3(symbols[i].gameObject.transform.localPosition.x, symbols[i].gameObject.transform.localPosition.y - spaceBetweenSymbols * Time.deltaTime * spinSpeed, symbols[i].gameObject.transform.position.z);
-
-                // move symbols back to top of reel
-                if(symbols[i].gameObject.transform.localPosition.y < (-1 * spaceBetweenSymbols * 2))
-                {
-                    symbols[i].gameObject.transform.localPosition = new Vector3(symbols[i].gameObject.transform.localPosition.x, topPosition, symbols[i].gameObject.transform.position.z);
-                }
+                symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, symbols[position].gameObject.transform.localPosition.y - spaceBetweenSymbols * Time.deltaTime * spinSpeed, symbols[position].gameObject.transform.position.z);
+                position = position + 1 < symbols.Length ? position + 1 : 0;
             }
+            symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, topPosition, symbols[position].gameObject.transform.position.z);
+
+            //for (int i = 0; i < symbols.Length; i++)
+            //{
+            //    symbols[i].gameObject.transform.localPosition = new Vector3(symbols[i].gameObject.transform.localPosition.x, symbols[i].gameObject.transform.localPosition.y - spaceBetweenSymbols * Time.deltaTime * spinSpeed, symbols[i].gameObject.transform.position.z);
+
+            //    // move symbols back to top of reel
+            //    if(symbols[i].gameObject.transform.localPosition.y < (-1 * spaceBetweenSymbols * 2))
+            //    {
+            //        symbols[i].gameObject.transform.localPosition = new Vector3(symbols[i].gameObject.transform.localPosition.x, topPosition, symbols[i].gameObject.transform.position.z);
+            //    }
+            //}
 
             rawPosition = (rawPosition + Time.deltaTime * spinSpeed) % (symbols.Length);
             stopPosition = (int)rawPosition;

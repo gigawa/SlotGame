@@ -55,6 +55,8 @@ namespace Assets.Scripts
         public DataManager dataManager;
         public HistoryUI historyUI;
 
+        public GameObject[] SymbolList;
+
         public override void AddStates()
         {
             AddState<IdleState>();
