@@ -1908,7 +1908,7 @@ MonoBehaviour:
   symbols: []
   spaceBetweenSymbols: 2
   targetStopPos: 0
-  rotations: 1
+  rotations: 3
   currSpinTime: 0
   desiredSpinSpeed: 25
   spinSpeed: 7
@@ -4607,7 +4607,7 @@ MonoBehaviour:
   - {fileID: 1340336113}
   - {fileID: 242170907}
   winEvaluator: {fileID: 566961576}
-  seedGame: 0
+  seedGame: 1
   inputManager: {fileID: 566961577}
   soundController: {fileID: 566961580}
   presentationController: {fileID: 566961581}
@@ -4715,6 +4715,12 @@ MonoBehaviour:
     comboType: 0
     bonus: 0
   - symbol: lackitu
+    wins: 19000000320000004b000000
+    minLength: 3
+    maxLength: 5
+    comboType: 0
+    bonus: 0
+  - symbol: cheep-cheep
     wins: 19000000320000004b000000
     minLength: 3
     maxLength: 5
@@ -10343,7 +10349,7 @@ MonoBehaviour:
   symbols: []
   spaceBetweenSymbols: 2
   targetStopPos: 0
-  rotations: 1
+  rotations: 2
   currSpinTime: 0
   desiredSpinSpeed: 25
   spinSpeed: 7
@@ -11078,7 +11084,7 @@ MonoBehaviour:
   symbols: []
   spaceBetweenSymbols: 2
   targetStopPos: 0
-  rotations: 1
+  rotations: 3
   currSpinTime: 0
   desiredSpinSpeed: 25
   spinSpeed: 7

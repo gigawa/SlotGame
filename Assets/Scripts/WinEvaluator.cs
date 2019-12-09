@@ -105,7 +105,7 @@ namespace Assets.Scripts
         {
             for (int i = 0; i < windowWidth; i++)
             {
-                int position = reels[i].targetStopPos - 1 > -1 ? reels[i].targetStopPos - 1 : reels[i].symbols.Count - 1;
+                int position = reels[i].targetStopPos;
                 for (int j = 0; j < windowHeight; j++)
                 {
                     symbolWindow[i, j] = reels[i].symbols[position];
@@ -293,6 +293,24 @@ namespace Assets.Scripts
         /// <returns></returns>
         IEnumerator PlayWinCycle()
         {
+            // Cycle through all lines
+            //UpdateSymbolWindow();
+            //foreach(var line in lines)
+            //{
+            //    for(int i = 0; i < 5; i++)
+            //    {
+            //        winIndicators[i, line.position[i]].SetActive(true);
+            //        symbolWindow[i, line.position[i]].PlayWin();
+            //    }
+
+            //    yield return new WaitForSeconds(1.5f);
+
+            //    for (int i = 0; i < 5; i++)
+            //    {
+            //        winIndicators[i, line.position[i]].SetActive(false);
+            //        symbolWindow[i, line.position[i]].StopWin();
+            //    }
+            //}
             // Cycle through line wins
             for (int i = 0; i < currAward.lines.Count; i++)
             {

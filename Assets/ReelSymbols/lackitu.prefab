@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 718734457395226877}
   - component: {fileID: 718734457395226865}
   - component: {fileID: 718734457395226864}
-  - component: {fileID: 1394509558447224381}
   - component: {fileID: 718734457395226879}
   m_Layer: 0
   m_Name: lackitu
@@ -104,22 +103,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1394509558447224381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718734457395226878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa34e6949cc28a498453625903f8e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WinCelebration: {fileID: 0}
-  Idle: {fileID: 0}
-  minRng: 0
-  maxRng: 0
 --- !u!114 &718734457395226879
 MonoBehaviour:
   m_ObjectHideFlags: 0

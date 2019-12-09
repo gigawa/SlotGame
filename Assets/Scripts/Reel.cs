@@ -65,7 +65,7 @@ namespace Assets.Scripts
 
         public void CreateSymbols ()
         {
-            float yPosition = transform.position.y;
+            float yPosition = transform.position.y - 2;
             for(int i = 0; i < symbolList.Length - 1; i++)
             {
                 GameObject symbolPrefab;
@@ -76,24 +76,11 @@ namespace Assets.Scripts
                     {
                         symbolPrefab = prefab;
                         var newSymbol = Instantiate(symbolPrefab, new Vector3(transform.position.x, yPosition, transform.position.z), transform.rotation, transform);
+                        newSymbol.name = prefab.name;
                         symbols.Add(newSymbol.GetComponent<Symbol>());
                         yPosition += spaceBetweenSymbols;
                         break;
                     }
-                }
-            }
-
-            yPosition = transform.position.y - 2;
-            foreach (var prefab in stateMachine.SymbolList)
-            {
-                Debug.Log(prefab.name);
-                if (prefab.name == symbolList[symbolList.Length - 1])
-                {
-                    var symbolPrefab = prefab;
-                    var newSymbol = Instantiate(symbolPrefab, new Vector3(transform.position.x, yPosition, transform.position.z), transform.rotation, transform);
-                    symbols.Add(newSymbol.GetComponent<Symbol>());
-                    yPosition += spaceBetweenSymbols;
-                    break;
                 }
             }
         }
@@ -159,17 +146,6 @@ namespace Assets.Scripts
             }
             symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, topPosition, symbols[position].gameObject.transform.position.z);
 
-            //for (int i = 0; i < symbols.Length; i++)
-            //{
-            //    symbols[i].gameObject.transform.localPosition = new Vector3(symbols[i].gameObject.transform.localPosition.x, symbols[i].gameObject.transform.localPosition.y - spaceBetweenSymbols * Time.deltaTime * spinSpeed, symbols[i].gameObject.transform.position.z);
-
-            //    // move symbols back to top of reel
-            //    if(symbols[i].gameObject.transform.localPosition.y < (-1 * spaceBetweenSymbols * 2))
-            //    {
-            //        symbols[i].gameObject.transform.localPosition = new Vector3(symbols[i].gameObject.transform.localPosition.x, topPosition, symbols[i].gameObject.transform.position.z);
-            //    }
-            //}
-
             rawPosition = (rawPosition + Time.deltaTime * spinSpeed) % (symbols.Count);
             stopPosition = (int)rawPosition;
             currSpinTime += Time.deltaTime;
@@ -182,21 +158,6 @@ namespace Assets.Scripts
         void CompleteSpin()
         {
             //// get position of bottom symbol
-            //int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Count - 1) - (1 - stopPosition));
-
-            //// set y position for each symbol
-            //float yPosition = -2 * spaceBetweenSymbols;
-
-            //for (int i = 0; i < symbols.Count; i++)
-            //{
-            //    symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, yPosition, symbols[position].gameObject.transform.position.z);
-
-            //    // increment position on reels up one
-            //    position = position + 1 < symbols.Count ? position + 1 : 0;
-
-            //    yPosition += spaceBetweenSymbols;
-            //}
-
             int position = stopPosition - 1 > -1 ? stopPosition - 1 : symbols.Count - 1;
             float yPosition = -2 * spaceBetweenSymbols;
             for (int i = 0; i < 4; i++)
@@ -219,7 +180,7 @@ namespace Assets.Scripts
             targetStopPos = stop;
 
             // get position of bottom symbol
-            int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Count - 1) - (1 - stopPosition));
+            int position = stop;
 
             // set y position for each symbol
             float yPosition = -2 * spaceBetweenSymbols;
