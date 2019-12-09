@@ -55,7 +55,7 @@ namespace Assets.Scripts
         public DataManager dataManager;
         public HistoryUI historyUI;
 
-        public GameObject[] SymbolList;
+        public List<GameObject> SymbolList;
 
         public override void AddStates()
         {
@@ -84,6 +84,13 @@ namespace Assets.Scripts
             UpdateAwardText(0);
 
             inputManager.changeBet += UpdateBetText;
+
+            foreach (var reel in reels)
+            {
+                reel.CreateSymbols();
+            }
+
+            winEvaluator.Initialize();
         }
 
         public void AddCredits(int cred)

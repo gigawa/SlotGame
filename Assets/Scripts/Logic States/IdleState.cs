@@ -102,7 +102,7 @@ namespace Assets.Scripts
                 {
                     if (!stateMachine.seedGame)
                     {
-                        int newStop = UnityEngine.Random.Range(0, stateMachine.reels[i].maxRng);
+                        int newStop = UnityEngine.Random.Range(0, stateMachine.reels[i].symbolList.Length);
                         stateMachine.reels[i].SetTargetStopPosition(newStop);
                     }
 

@@ -9,7 +9,7 @@ namespace Assets.Scripts
     public class Reel : MonoBehaviour
     {
         [SerializeField]
-        public Symbol[] symbols;
+        public List<Symbol> symbols;
 
         [SerializeField]
         public int stopPosition { get; private set; }
@@ -43,18 +43,11 @@ namespace Assets.Scripts
         public delegate void StopReels(Reel reel);
         public StopReels stopReels;
 
+        public string[] symbolList;
+
         // Start is called before the first frame update
         void Start()
         {
-            symbols = GetComponentsInChildren<Symbol>();
-            maxRng = 0;
-            foreach(Symbol symbol in symbols)
-            {
-                if(symbol.maxRng > maxRng)
-                {
-                    maxRng = symbol.maxRng;
-                }
-            }
         }
 
         // Update is called once per frame
@@ -70,22 +63,47 @@ namespace Assets.Scripts
             }
         }
 
+        public void CreateSymbols ()
+        {
+            float yPosition = transform.position.y;
+            for(int i = 0; i < symbolList.Length - 1; i++)
+            {
+                GameObject symbolPrefab;
+                foreach(var prefab in stateMachine.SymbolList)
+                {
+                    Debug.Log(prefab.name);
+                    if(prefab.name == symbolList[i])
+                    {
+                        symbolPrefab = prefab;
+                        var newSymbol = Instantiate(symbolPrefab, new Vector3(transform.position.x, yPosition, transform.position.z), transform.rotation, transform);
+                        symbols.Add(newSymbol.GetComponent<Symbol>());
+                        yPosition += spaceBetweenSymbols;
+                        break;
+                    }
+                }
+            }
+
+            yPosition = transform.position.y - 2;
+            foreach (var prefab in stateMachine.SymbolList)
+            {
+                Debug.Log(prefab.name);
+                if (prefab.name == symbolList[symbolList.Length - 1])
+                {
+                    var symbolPrefab = prefab;
+                    var newSymbol = Instantiate(symbolPrefab, new Vector3(transform.position.x, yPosition, transform.position.z), transform.rotation, transform);
+                    symbols.Add(newSymbol.GetComponent<Symbol>());
+                    yPosition += spaceBetweenSymbols;
+                    break;
+                }
+            }
+        }
+
         /// <summary>
         /// Sets the new stop position for the reels
         /// </summary>
         /// <param name="newStop"></param>
-        public void SetTargetStopPosition(int rng)
+        public void SetTargetStopPosition(int newStop)
         {
-            int newStop = 0;
-            //Debug.Log("Rng: " + rng);
-            for (int i = 0; i < symbols.Length; i++)
-            {
-                if(symbols[i].minRng < rng && symbols[i].maxRng > rng)
-                {
-                    newStop = i;
-                    break;
-                }
-            }
             targetStopPos = newStop;
         }
 
@@ -106,10 +124,10 @@ namespace Assets.Scripts
             //spinTime = time;
 
             // Determine by desired rotations
-            int distanceToStart = targetStopPos - stopPosition > 0 ? targetStopPos - stopPosition : targetStopPos - stopPosition + symbols.Length;
+            int distanceToStart = targetStopPos - stopPosition > 0 ? targetStopPos - stopPosition : targetStopPos - stopPosition + symbols.Count;
 
             // Add rotation if only have 1/4 of the reel extra to reach stop position
-            int distanceToTravel = distanceToStart > symbols.Length / 4 ? rotations * symbols.Length + distanceToStart : (rotations + 1) * symbols.Length + distanceToStart;
+            int distanceToTravel = distanceToStart > symbols.Count / 4 ? rotations * symbols.Count + distanceToStart : (rotations + 1) * symbols.Count + distanceToStart;
             spinSpeed = distanceToTravel / time;
             spinTime = time;
 
@@ -133,12 +151,11 @@ namespace Assets.Scripts
         /// </summary>
         void SpinReel()
         {
-            int position = stopPosition - 1 > -1 ? stopPosition - 1 : symbols.Length - 1;
-            Debug.Log("Start Position: " + position);
-            for (int i = 0; i < 4; i++)
+            int position = stopPosition - 1 > -1 ? stopPosition - 1 : symbols.Count - 1;
+            for (int i = 0; i < 5; i++)
             {
                 symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, symbols[position].gameObject.transform.localPosition.y - spaceBetweenSymbols * Time.deltaTime * spinSpeed, symbols[position].gameObject.transform.position.z);
-                position = position + 1 < symbols.Length ? position + 1 : 0;
+                position = position + 1 < symbols.Count ? position + 1 : 0;
             }
             symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, topPosition, symbols[position].gameObject.transform.position.z);
 
@@ -153,7 +170,7 @@ namespace Assets.Scripts
             //    }
             //}
 
-            rawPosition = (rawPosition + Time.deltaTime * spinSpeed) % (symbols.Length);
+            rawPosition = (rawPosition + Time.deltaTime * spinSpeed) % (symbols.Count);
             stopPosition = (int)rawPosition;
             currSpinTime += Time.deltaTime;
         }
@@ -164,20 +181,31 @@ namespace Assets.Scripts
         /// </summary>
         void CompleteSpin()
         {
-            // get position of bottom symbol
-            int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Length - 1) - (1 - stopPosition));
+            //// get position of bottom symbol
+            //int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Count - 1) - (1 - stopPosition));
 
-            // set y position for each symbol
+            //// set y position for each symbol
+            //float yPosition = -2 * spaceBetweenSymbols;
+
+            //for (int i = 0; i < symbols.Count; i++)
+            //{
+            //    symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, yPosition, symbols[position].gameObject.transform.position.z);
+
+            //    // increment position on reels up one
+            //    position = position + 1 < symbols.Count ? position + 1 : 0;
+
+            //    yPosition += spaceBetweenSymbols;
+            //}
+
+            int position = stopPosition - 1 > -1 ? stopPosition - 1 : symbols.Count - 1;
             float yPosition = -2 * spaceBetweenSymbols;
-            for (int i = 0; i < symbols.Length; i++)
+            for (int i = 0; i < 4; i++)
             {
                 symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, yPosition, symbols[position].gameObject.transform.position.z);
-
-                // increment position on reels up one
-                position = position + 1 < symbols.Length ? position + 1 : 0;
-
+                position = position + 1 < symbols.Count ? position + 1 : 0;
                 yPosition += spaceBetweenSymbols;
             }
+            symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, topPosition, symbols[position].gameObject.transform.position.z);
 
             spinning = false;
             currSpinTime = 0f;
@@ -191,16 +219,16 @@ namespace Assets.Scripts
             targetStopPos = stop;
 
             // get position of bottom symbol
-            int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Length - 1) - (1 - stopPosition));
+            int position = stopPosition - 2 > -1 ? stopPosition - 2 : ((symbols.Count - 1) - (1 - stopPosition));
 
             // set y position for each symbol
             float yPosition = -2 * spaceBetweenSymbols;
-            for (int i = 0; i < symbols.Length; i++)
+            for (int i = 0; i < symbols.Count; i++)
             {
                 symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, yPosition, symbols[position].gameObject.transform.position.z);
 
                 // increment position on reels up one
-                position = position + 1 < symbols.Length ? position + 1 : 0;
+                position = position + 1 < symbols.Count ? position + 1 : 0;
 
                 yPosition += spaceBetweenSymbols;
             }

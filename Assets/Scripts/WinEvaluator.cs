@@ -66,9 +66,7 @@ namespace Assets.Scripts
 
         public void Start()
         {
-            reels = stateMachine.reels;
-            symbolWindow = new Symbol[windowWidth, windowHeight];
-            SetupWinIndicators();
+            
         }
 
         public void FixedUpdate()
@@ -81,6 +79,13 @@ namespace Assets.Scripts
                     winCycleInstance = StartCoroutine(PlayWinCycle());
                 }
             }
+        }
+
+        public void Initialize()
+        {
+            reels = stateMachine.reels;
+            symbolWindow = new Symbol[windowWidth, windowHeight];
+            SetupWinIndicators();
         }
 
         public void SetupWinIndicators()
@@ -100,11 +105,11 @@ namespace Assets.Scripts
         {
             for (int i = 0; i < windowWidth; i++)
             {
-                int position = reels[i].targetStopPos - 1 > -1 ? reels[i].targetStopPos - 1 : reels[i].symbols.Length - 1;
+                int position = reels[i].targetStopPos - 1 > -1 ? reels[i].targetStopPos - 1 : reels[i].symbols.Count - 1;
                 for (int j = 0; j < windowHeight; j++)
                 {
                     symbolWindow[i, j] = reels[i].symbols[position];
-                    position = position + 1 < reels[i].symbols.Length ? position + 1 : 0;
+                    position = position + 1 < reels[i].symbols.Count ? position + 1 : 0;
                 }
             }
         }
