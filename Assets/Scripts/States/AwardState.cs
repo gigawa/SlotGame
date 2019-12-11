@@ -30,7 +30,10 @@ namespace Assets.Scripts
                 else if (award < maxBigWin)
                 {
                     stateMachine.presentationController.BigWinCelebration();
-                }
+                } 
+                
+                // Implement huge win here
+                // haven't found animations/sounds yet
                 else
                 {
 

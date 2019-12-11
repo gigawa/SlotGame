@@ -29,7 +29,7 @@ namespace Assets.Scripts
             stateMachine.inputManager.decreaseBet += DecreaseBet;
             stateMachine.winEvaluator.StartWinCycle();
 
-            stateMachine.RollupCreditText();
+            //stateMachine.RollupCreditText();
 
             stateMachine.inputManager.EnableInputs();
         }
@@ -57,9 +57,10 @@ namespace Assets.Scripts
 
         public void AttemptBet()
         {
+            int credits = stateMachine.credits;
             if (stateMachine.PlaceBet())
             {
-                CommitBet();
+                CommitBet(credits);
             }
         }
 
@@ -83,15 +84,16 @@ namespace Assets.Scripts
         {
             stateMachine.AddCredits(1000);
             stateMachine.RollupCreditText();
+            stateMachine.soundController.PlayCoinInSound();
         }
 
-        public void CommitBet()
+        public void CommitBet(int startingCredits)
         {
             stateMachine.inputManager.DisableInputs();
 
             var nextCycle = new GameCycleData();
             nextCycle.betAmount = stateMachine.betLevels[stateMachine.betLevelIndex] * stateMachine.minBet;
-            nextCycle.startingCredits = stateMachine.credits;
+            nextCycle.startingCredits = startingCredits;
             nextCycle.reelStops = new List<int>();
 
             // Set reel stops for each reel

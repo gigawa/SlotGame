@@ -45,6 +45,13 @@ namespace Assets.Scripts
             audioSource.Play();
         }
 
+        public void PlayCoinInSound()
+        {
+            audioSource.clip = coinInSound;
+            audioSource.loop = false;
+            audioSource.Play();
+        }
+
         public void PlaySmallWinSound()
         {
             audioSource.clip = winSound;

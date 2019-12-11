@@ -66,7 +66,9 @@ namespace Assets.Scripts
 
         public void Start()
         {
-            
+            reels = stateMachine.reels;
+            symbolWindow = new Symbol[windowWidth, windowHeight];
+            SetupWinIndicators();
         }
 
         public void FixedUpdate()
@@ -79,13 +81,6 @@ namespace Assets.Scripts
                     winCycleInstance = StartCoroutine(PlayWinCycle());
                 }
             }
-        }
-
-        public void Initialize()
-        {
-            reels = stateMachine.reels;
-            symbolWindow = new Symbol[windowWidth, windowHeight];
-            SetupWinIndicators();
         }
 
         public void SetupWinIndicators()
@@ -111,6 +106,7 @@ namespace Assets.Scripts
                     symbolWindow[i, j] = reels[i].symbols[position];
                     position = position + 1 < reels[i].symbols.Count ? position + 1 : 0;
                 }
+                //Debug.Log("position" + position);
             }
         }
 
@@ -311,6 +307,7 @@ namespace Assets.Scripts
             //        symbolWindow[i, line.position[i]].StopWin();
             //    }
             //}
+            
             // Cycle through line wins
             for (int i = 0; i < currAward.lines.Count; i++)
             {

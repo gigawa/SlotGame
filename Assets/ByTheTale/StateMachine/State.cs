@@ -43,21 +43,21 @@ namespace ByTheTale.StateMachine
         public virtual void Initialize()
         {
 #if (BYTHETALE_STATEMACHINE_VERBOSE)
-            UnityEngine.Debug.Log(machine.name + "." + GetType().Name + "::" + System.Reflection.MethodBase.GetCurrentMethod().Name + "()");
+            //UnityEngine.Debug.Log(machine.name + "." + GetType().Name + "::" + System.Reflection.MethodBase.GetCurrentMethod().Name + "()");
 #endif // BYTHETALE_STATEMACHINE_VERBOSE
         }
 
         public virtual void Enter()
         {
 #if (BYTHETALE_STATEMACHINE_VERBOSE)
-            UnityEngine.Debug.Log(machine.name + "." + GetType().Name + "::" + System.Reflection.MethodBase.GetCurrentMethod().Name + "()");
+            //UnityEngine.Debug.Log(machine.name + "." + GetType().Name + "::" + System.Reflection.MethodBase.GetCurrentMethod().Name + "()");
 #endif // BYTHETALE_STATEMACHINE_VERBOSE
         }
 
         public virtual void Exit()
         {
 #if (BYTHETALE_STATEMACHINE_VERBOSE)
-            UnityEngine.Debug.Log(machine.name + "." + GetType().Name + "::" + System.Reflection.MethodBase.GetCurrentMethod().Name + "()");
+            //UnityEngine.Debug.Log(machine.name + "." + GetType().Name + "::" + System.Reflection.MethodBase.GetCurrentMethod().Name + "()");
 #endif // BYTHETALE_STATEMACHINE_VERBOSE
         }
 

@@ -46,32 +46,35 @@ namespace Assets.Scripts
         public string[] symbolList;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
+            CreateSymbols();
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (spinning && (stopPosition != targetStopPos || currSpinTime < (spinTime - 0.25f)))
-            {
-                SpinReel();
-            }
-            else if (spinning)
-            {
-                CompleteSpin();
-            }
+            //if (spinning && (stopPosition != targetStopPos || currSpinTime < (spinTime - 0.25f)))
+            //{
+            //    SpinReel();
+            //}
+            //else if (spinning)
+            //{
+            //    CompleteSpin();
+            //}
         }
 
         public void CreateSymbols ()
         {
             float yPosition = transform.position.y - 2;
-            for(int i = 0; i < symbolList.Length - 1; i++)
+            for(int i = 0; i < symbolList.Length; i++)
             {
                 GameObject symbolPrefab;
-                foreach(var prefab in stateMachine.SymbolList)
+                bool found = false;
+                foreach (var prefab in stateMachine.SymbolList)
                 {
-                    Debug.Log(prefab.name);
+                    
+                    // Debug.Log(prefab.name);
                     if(prefab.name == symbolList[i])
                     {
                         symbolPrefab = prefab;
@@ -79,8 +82,14 @@ namespace Assets.Scripts
                         newSymbol.name = prefab.name;
                         symbols.Add(newSymbol.GetComponent<Symbol>());
                         yPosition += spaceBetweenSymbols;
+                        found = true;
                         break;
                     }
+                }
+
+                if(!found)
+                {
+                    Debug.Log("Not Found: " + symbolList[i] + " Reel: " + this.name);
                 }
             }
         }
@@ -101,15 +110,6 @@ namespace Assets.Scripts
         {
             spinning = true;
 
-            // Determine by desired speed
-            //int distanceToStart = targetStopPos - stopPosition > 0 ? targetStopPos - stopPosition : targetStopPos - stopPosition + symbols.Length;
-            //float firstRotationTime = distanceToStart * spaceBetweenSymbols / desiredSpinSpeed;
-            //float rotationTime = symbols.Length * spaceBetweenSymbols / desiredSpinSpeed;
-            //int desiredRotations = Mathf.RoundToInt(time - firstRotationTime > rotationTime ? (time - firstRotationTime) / rotationTime : 1);
-            //int distanceToTravel = desiredRotations * symbols.Length + distanceToStart;
-            //spinSpeed = distanceToTravel / time;
-            //spinTime = time;
-
             // Determine by desired rotations
             int distanceToStart = targetStopPos - stopPosition > 0 ? targetStopPos - stopPosition : targetStopPos - stopPosition + symbols.Count;
 
@@ -122,6 +122,7 @@ namespace Assets.Scripts
 
             rawPosition = stopPosition;
 
+            StartCoroutine("SpinReel");
             startReels(this);
         }
 
@@ -136,19 +137,24 @@ namespace Assets.Scripts
         /// <summary>
         /// Moves symbols to simulate spinning reel
         /// </summary>
-        void SpinReel()
+        IEnumerator SpinReel()
         {
-            int position = stopPosition - 1 > -1 ? stopPosition - 1 : symbols.Count - 1;
-            for (int i = 0; i < 5; i++)
-            {
-                symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, symbols[position].gameObject.transform.localPosition.y - spaceBetweenSymbols * Time.deltaTime * spinSpeed, symbols[position].gameObject.transform.position.z);
-                position = position + 1 < symbols.Count ? position + 1 : 0;
-            }
-            symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, topPosition, symbols[position].gameObject.transform.position.z);
+            while (stopPosition != targetStopPos || currSpinTime < (spinTime - 0.25f)) {
+                int position = stopPosition - 1 > -1 ? stopPosition - 1 : symbols.Count - 1;
+                for (int i = 0; i < 5; i++)
+                {
+                    symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, symbols[position].gameObject.transform.localPosition.y - spaceBetweenSymbols * Time.deltaTime * spinSpeed, symbols[position].gameObject.transform.position.z);
+                    position = position + 1 < symbols.Count ? position + 1 : 0;
+                }
+                symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, topPosition, symbols[position].gameObject.transform.position.z);
 
-            rawPosition = (rawPosition + Time.deltaTime * spinSpeed) % (symbols.Count);
-            stopPosition = (int)rawPosition;
-            currSpinTime += Time.deltaTime;
+                rawPosition = (rawPosition + Time.deltaTime * spinSpeed) % (symbols.Count);
+                stopPosition = (int)rawPosition;
+                currSpinTime += Time.deltaTime;
+
+                yield return null;
+            }
+            CompleteSpin();
         }
 
         /// <summary>
@@ -157,7 +163,18 @@ namespace Assets.Scripts
         /// </summary>
         void CompleteSpin()
         {
-            //// get position of bottom symbol
+            SetSymbolPositions();
+
+            spinning = false;
+            currSpinTime = 0f;
+
+            stopReels(this);
+        }
+
+
+        void SetSymbolPositions(bool allSymbols = false)
+        {
+            // get position of bottom symbol
             int position = stopPosition - 1 > -1 ? stopPosition - 1 : symbols.Count - 1;
             float yPosition = -2 * spaceBetweenSymbols;
             for (int i = 0; i < 4; i++)
@@ -168,10 +185,16 @@ namespace Assets.Scripts
             }
             symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, topPosition, symbols[position].gameObject.transform.position.z);
 
-            spinning = false;
-            currSpinTime = 0f;
-
-            stopReels(this);
+            // Iterate through rest if need to set all symbol stop position
+            // needed for history/power hit
+            if(allSymbols)
+            {
+                for(int i = 4; i < symbolList.Length; i++)
+                {
+                    symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, topPosition, symbols[position].gameObject.transform.position.z);
+                    position = position + 1 < symbols.Count ? position + 1 : 0;
+                }
+            }
         }
 
         public void SetStop(int stop)
@@ -179,20 +202,7 @@ namespace Assets.Scripts
             stopPosition = stop;
             targetStopPos = stop;
 
-            // get position of bottom symbol
-            int position = stop;
-
-            // set y position for each symbol
-            float yPosition = -2 * spaceBetweenSymbols;
-            for (int i = 0; i < symbols.Count; i++)
-            {
-                symbols[position].gameObject.transform.localPosition = new Vector3(symbols[position].gameObject.transform.localPosition.x, yPosition, symbols[position].gameObject.transform.position.z);
-
-                // increment position on reels up one
-                position = position + 1 < symbols.Count ? position + 1 : 0;
-
-                yPosition += spaceBetweenSymbols;
-            }
+            SetSymbolPositions(true);
         }
     }
 }

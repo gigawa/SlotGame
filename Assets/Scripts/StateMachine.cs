@@ -84,13 +84,6 @@ namespace Assets.Scripts
             UpdateAwardText(0);
 
             inputManager.changeBet += UpdateBetText;
-
-            foreach (var reel in reels)
-            {
-                reel.CreateSymbols();
-            }
-
-            winEvaluator.Initialize();
         }
 
         public void AddCredits(int cred)
